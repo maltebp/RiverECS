@@ -1,0 +1,16 @@
+
+
+ENTITY SIGNATURE ALGORITHM
+Use a customized bitset-datastructure. This is an array of bitsets with an element for each Entity in the domain. The bitsets has a bit for each possible component in the Domain.
+
+When checking which Entities matches a signature, the array is traversed, by checking each Entity's bitset against the signature bitset.
+
+
+COMPONENT STORAGE / SEARCH
+
+    Each type of components is stored in a seperate list. At all times, the components in a list are packed (no gaps between elements).
+
+    Mapping Entity to components
+        An unordered map, maps the Entity id (Entity*) to component index, and another maps the Component ID to the Entity.
+
+    When a component is deleted, the last component is moved into the element's spot, and the Entity-Index-maps are updated.

@@ -1,0 +1,28 @@
+﻿  Main.cpp
+C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\ComponentController.h(230,1): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\ComponentController.h(228): message : while compiling class template member function 'C &ECS::ComponentController<C>::getNewComponent(unsigned int)'
+          with
+          [
+              C=TestComponent
+          ]
+C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\ComponentController.h(69): message : see reference to function template instantiation 'C &ECS::ComponentController<C>::getNewComponent(unsigned int)' being compiled
+          with
+          [
+              C=TestComponent
+          ]
+C:\Users\Malte\Projects\RiverECS\Tests\src\UnitTests\ComponentController.h(20): message : see reference to class template instantiation 'ECS::ComponentController<TestComponent>' being compiled
+C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\ComponentController.h(170,1): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\ComponentController.h(166): message : while compiling class template member function 'void ECS::ComponentController<TestComponent>::compress(void)'
+C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\ComponentController.h(136): message : see reference to function template instantiation 'void ECS::ComponentController<TestComponent>::compress(void)' being compiled
+C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\ComponentController.h(118,1): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\ComponentController.h(110): message : while compiling class template member function 'C *ECS::ComponentController<C>::getComponent(ECS::ComponentId)'
+          with
+          [
+              C=TestComponent
+          ]
+C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\ComponentController.h(100): message : see reference to function template instantiation 'C *ECS::ComponentController<C>::getComponent(ECS::ComponentId)' being compiled
+          with
+          [
+              C=TestComponent
+          ]
+  Tests.vcxproj -> C:\Users\Malte\Projects\RiverECS\Tests\bin\Debug-x64\Tests.exe
