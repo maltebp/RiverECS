@@ -170,7 +170,7 @@ namespace ECS {
 
 	unsigned int SignatureArray::remove(unsigned int index) {
 		// TODO: Invalidate caches
-		if( index <= numSignatures )
+		if( index >= numSignatures )
 			throw new IndexOutOfBoundsException(index, numSignatures);
 
 		numSignatures--;
