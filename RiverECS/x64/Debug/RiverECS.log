@@ -1,4 +1,5 @@
 ﻿  SignatureArray.cpp
+C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\SignatureArray\SignatureArray.cpp(119,52): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
 C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\SignatureArray\SignatureArray.cpp(130,23): warning C4018: '<': signed/unsigned mismatch
 C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\SignatureArray\SignatureArray.cpp(137,23): warning C4018: '<': signed/unsigned mismatch
 C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\SignatureArray\SignatureArray.cpp(182,27): warning C4018: '<': signed/unsigned mismatch

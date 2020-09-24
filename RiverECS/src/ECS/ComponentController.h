@@ -84,7 +84,8 @@ namespace ECS {
 		void deleteComponent(Entity* entity) override {
 			auto iterator = componentMap.find(entity);
 			if( iterator == componentMap.end() ) return;
-			componentsToDelete.insert(iterator->second);
+			if( componentsToDelete.find(iterator->second) == componentsToDelete.end() )
+				componentsToDelete.insert(iterator->second);
 		}
 
 

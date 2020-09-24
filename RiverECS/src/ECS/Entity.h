@@ -7,9 +7,25 @@ namespace ECS {
 	struct Entity {
 	public:
 
+		// TODO: Document
 		template <typename C>
-		void addComponent() {
-			domain.addEntityComponent<C>(this);
+		C* addComponent() {
+			RV_ECS_ASSERT_COMPONENT_TYPE(C);
+			return domain.addEntityComponent<C>(this);
+		}
+
+		// TODO: Document
+		template <typename C>
+		C* getComponent() {
+			RV_ECS_ASSERT_COMPONENT_TYPE(C);
+			return domain.getEntityComponent<C>(this);
+		}
+
+		// TODO: Document
+		template <typename C>
+		void removeComponent() {
+			RV_ECS_ASSERT_COMPONENT_TYPE(C);
+			domain.getEntityComponent<C>(this);
 		}
 
 		//void destroy();

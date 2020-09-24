@@ -29,10 +29,9 @@ namespace ECS {
 		template <typename C>
 		C* addEntityComponent(Entity* entity) {
 			RV_ECS_ASSERT_COMPONENT_TYPE(C);
-
 			auto componentController = getComponentController<C>();		
 			auto component = componentController->createComponent(entity);
-			newEntityComponents.emplace(entity, ComponentTypeRegistry::getTypeId<C>());
+			entityComponentsToCreate.find(entity)->second.push_back(ComponentTypeRegistry::getTypeId<C>());
 			return component;
 		}
 
@@ -40,8 +39,17 @@ namespace ECS {
 
 		template <typename C>
 		C* getEntityComponent(Entity* entity) {
+			RV_ECS_ASSERT_COMPONENT_TYPE(C);
 			auto componentController = getComponentController<C>();
 			return componentController->getComponent(entity);
+		}
+
+		template <typename C>
+		C* removeEntityComponent(Entity* entity) {
+			RV_ECS_ASSERT_COMPONENT_TYPE(C);
+			auto componentController = getComponentController<C>();
+			
+
 		}
 
 
@@ -96,11 +104,22 @@ namespace ECS {
 		std::unordered_set<Entity*> newEntities;
 		std::unordered_set<Entity*> entitiesToDelete;
 
+		/**
+		 * @brief Maps an entity to an index into the signature array */
+		std::unordered_map<Entity*, unsigned int> entitySignatureIndexMap;
 
-		std::unordered_map<Entity*, ComponentTypeId> newEntityComponents;
+		/**
+		 * @brief Maps an signature index to an entiy */
+		std::unordered_map<unsigned int, Entity*> signatureIndexEntityMap;
+
+
+		std::unordered_map<Entity*, std::vector<ComponentTypeId>> entityComponentsToCreate;
+		std::unordered_map<Entity*, std::vector<ComponentTypeId>> entityComponentsToDelete;
+		
 
 
 		SignatureArray signatures;
+
 		std::unordered_map<ComponentTypeId, IComponentController*> componentControllers;
 
 	};

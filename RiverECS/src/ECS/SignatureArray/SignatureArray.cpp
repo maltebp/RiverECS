@@ -116,7 +116,7 @@ namespace ECS {
 		if( partsDifference > 0 ) {
 
 			// Extend memory with memory for new parts
-			reserveMemory(newSignatureParts * numSignatures);
+			reserveMemory(newSignatureParts * numSignatures + memoryStepSize);
 
 			// Pointers to last part of last signature in old and new data
 			unsigned char* oldData = data + (signatureParts-1) + (numSignatures-1) * signatureParts;
