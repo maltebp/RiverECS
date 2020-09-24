@@ -76,6 +76,17 @@ namespace ECS {
 		bitManipulator.set(signatureIndex*signatureParts*8 + bitIndex);
 	}
 
+
+	void SignatureArray::unsetSignatureBit(unsigned int signatureIndex, unsigned int bitIndex) {
+		if( !(signatureIndex < numSignatures) )
+			throw new IndexOutOfBoundsException(signatureIndex, numSignatures);
+
+		// TODO: Consider adding a bit out of bounds
+
+		bitManipulator.unset(signatureIndex * signatureParts * 8 + bitIndex);
+	}
+
+
 	bool SignatureArray::getSignatureBit(unsigned int signatureIndex, unsigned int bitIndex) {
 		if( !(signatureIndex < numSignatures) )
 			throw new IndexOutOfBoundsException(signatureIndex, numSignatures);
@@ -99,7 +110,7 @@ namespace ECS {
 		// - - - - - + + + + + - - - - - + + + + + - - - - -
 		
 		// Check if more parts are required (i.e. we go from 8 to 9 in size)
-		unsigned int newSignatureParts = 1 + (signatureSize - 1) / 8;
+		unsigned int newSignatureParts = 1 + (newSignatureSize - 1) / 8;
 		unsigned int partsDifference = newSignatureParts - signatureParts;
 
 		if( partsDifference > 0 ) {
