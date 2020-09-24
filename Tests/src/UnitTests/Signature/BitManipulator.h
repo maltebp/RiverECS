@@ -58,6 +58,33 @@ TEST_CASE("Generel tests", "[bit_manipulator]") {
 	}
 
 
+	SECTION("For each bit set") {
+
+		unsigned int expectedBits[] = {
+			4, 8, 14, 15, 17, 30, 31
+		};
+
+		for( auto& bit : expectedBits ) {
+			manipulator.set(bit);
+		}
+
+		std::unordered_set<unsigned int> bitsCallbacked;
+
+		manipulator.forEachSetBit( [&bitsCallbacked](unsigned int bitIndex){
+			REQUIRE(bitsCallbacked.find(bitIndex) == bitsCallbacked.end());
+			bitsCallbacked.emplace(bitIndex);
+		});
+
+		for( auto& bit : expectedBits ) {
+			REQUIRE(bitsCallbacked.find(bit) != bitsCallbacked.end());
+			bitsCallbacked.erase(bit);
+		}
+		
+		REQUIRE(bitsCallbacked.size() == 0);
+
+	}
+
+
 
 
 	delete[] data;

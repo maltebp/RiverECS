@@ -93,6 +93,8 @@
     <ClInclude Include="src\UnitTests\ComponentController.h" />
     <ClInclude Include="src\UnitTests\Main.h" />
     <ClInclude Include="src\UnitTests\Signature\BitManipulator.h" />
+    <ClInclude Include="src\UnitTests\Signature\Signature.h" />
+    <ClInclude Include="src\UnitTests\Signature\SignatureArray.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp" />

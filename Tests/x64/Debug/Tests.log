@@ -1,3 +1,1 @@
-﻿  Main.cpp
-C:\Users\Malte\Projects\RiverECS\Tests\src\UnitTests\Signature\BitManipulator.h(22,21): warning C4018: '<': signed/unsigned mismatch
-  Tests.vcxproj -> C:\Users\Malte\Projects\RiverECS\Tests\bin\Debug-x64\Tests.exe
+﻿  Tests.vcxproj -> C:\Users\Malte\Projects\RiverECS\Tests\bin\Debug-x64\Tests.exe

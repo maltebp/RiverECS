@@ -33,9 +33,6 @@
     <ClInclude Include="src\ECS\Component.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ECS\ComponentController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\ECS\SignatureArray\SignatureArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -45,7 +42,10 @@
     <ClInclude Include="src\ECS\SignatureArray\Signature.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ECS\ComponentRegistry.h">
+    <ClInclude Include="src\ECS\ComponentController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ECS\ComponentTypeRegistry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -65,7 +65,7 @@
     <ClCompile Include="src\ECS\SignatureArray\Signature.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ECS\ComponentRegistry.cpp">
+    <ClCompile Include="src\ECS\ComponentTypeRegistry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

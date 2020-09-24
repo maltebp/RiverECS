@@ -1,19 +1,18 @@
 #pragma once
 
-#include <cstdint>
 #include "Domain.h"
 
 namespace ECS {
 
 	struct Entity {
-		Domain& domain;
+	public:
 
 		template <typename C>
 		void addComponent() {
 			domain.addEntityComponent<C>(this);
 		}
 
-		void destroy();
+		//void destroy();
 
 
 
@@ -25,6 +24,8 @@ namespace ECS {
 
 		Entity(const Entity& other) = delete;
 		// TODO: Delete move contructor, and = operator constructors as well
+
+		Domain& domain;
 
 
 		friend class Domain;

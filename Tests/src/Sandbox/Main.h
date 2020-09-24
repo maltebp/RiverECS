@@ -8,7 +8,7 @@
 #include "Log.h"
 #
 
-struct TestComponent {
+struct TestComponent : ECS::Component {
 	unsigned value = 0;
 };
 

@@ -82,20 +82,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\ECS\ComponentRegistry.h" />
+    <ClInclude Include="src\ECS\ComponentController.h" />
+    <ClInclude Include="src\ECS\ComponentTypeRegistry.h" />
     <ClInclude Include="src\ECS\SignatureArray\Signature.h" />
     <ClInclude Include="src\ECS\SignatureArray\BitManipulator.h" />
     <ClInclude Include="src\ECS\SignatureArray\SignatureArray.h" />
     <ClInclude Include="src\ECS\Component.h" />
     <ClInclude Include="src\ECS\Exception.h" />
-    <ClInclude Include="src\ECS\ComponentController.h" />
     <ClInclude Include="src\ECS\Domain.h" />
     <ClInclude Include="src\ECS\Entity.h" />
     <ClInclude Include="src\ECS.h" />
     <ClInclude Include="src\ECS\Log.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\ECS\ComponentRegistry.cpp" />
+    <ClCompile Include="src\ECS\ComponentTypeRegistry.cpp" />
     <ClCompile Include="src\ECS\SignatureArray\Signature.cpp" />
     <ClCompile Include="src\ECS\SignatureArray\BitManipulator.cpp" />
     <ClCompile Include="src\ECS\SignatureArray\SignatureArray.cpp" />

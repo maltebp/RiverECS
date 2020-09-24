@@ -4,7 +4,7 @@ namespace ECS {
 
 
 	Signature::Signature(unsigned int size) :
-		BitManipulator((unsigned char*) calloc(1 + (size - 1) / 8, 1), size)
+		BitManipulator((unsigned char*) calloc( (1+(size-1)/8), 1), size)
 	{}
 
 	Signature::~Signature() {
@@ -30,5 +30,26 @@ namespace ECS {
 			bits[i] = other.bits[i];
 	}
 
+
+
+	void Signature::resize(unsigned int newSize) {
+		if( newSize == size ) return;
+		if( newSize < size ) throw new SignatureSizeReducedException(size, newSize);
+
+		size = newSize;
+
+		// Check new memory size
+		unsigned int newParts = 1 + (newSize - 1) / 8;
+		if( newParts == parts ) return;
+
+		// Reallocate memory and initialize data to 0
+		bits = (unsigned char*) realloc(bits, newParts);
+		unsigned firstNewByte = parts;
+		for( int i = parts; i < newParts; i++ ) {
+			bits[i] = 0;
+		}
+
+		parts = newParts;
+	}
 
 }

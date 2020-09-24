@@ -1,0 +1,26 @@
+
+
+
+
+
+Left off at:
+    Testing SignatureArray, and then implement creation of entities in Domain 
+
+
+General:
+
+
+
+    ☐ Create pre-allocated array of entities instead of doing dynamic allocation each time
+    ☐ Allow user to set number of component types to preallocate
+    ☐ Clean ComponentControllers frequently by sorting components according to entity id
+    ☐ Cache queries
+    ☐ Clean up domain properly (i.e. destroy componentcontrollers))
+    ☐ Change SignatureArray to handle larger bit indices (change unsigned int to size_t)
+
+
+    Tests:
+        ☐ Create and destroy entity in same cycle
+        ✔ Test resizing of signatures
+        ☐ SignatureArray
+        

@@ -28,15 +28,21 @@ namespace ECS {
 
 
 
+	class IComponentController {
+	public:
+		virtual void deleteComponent(Entity* entity) = 0;
+		virtual void clean() = 0;
+	};
+
+
 	/**
 	 * @brief	Manages the creation, storage and deletion of a specifc component type
 	 * @tparam  C	The type of component (must inherit from ECS::Component)
 	*/
 	template <typename C>
-	class ComponentController {
-		static_assert(std::is_base_of<Component, C>::value, "Component types must inherit from ECS::Component");
-
-		const static unsigned int SECONDARY_LIST_SIZE = 20;
+	class ComponentController : public IComponentController {
+		RV_ECS_ASSERT_COMPONENT_TYPE(C);
+		const static unsigned int SECONDARY_LIST_SIZE = 100;
 
 	public:
 		ComponentController() {}
@@ -55,22 +61,18 @@ namespace ECS {
 				pointers to elements in the primary list, in case new components
 				are created during iteration of primary components.
 			*/
+			if( entity == nullptr )
+				throw std::invalid_argument("Entity pointer cannot be null");
 
 			if( componentMap.find(entity) != componentMap.end() )
 				throw MultipleComponentException(typeid(C).name()); // Throw exception
+			
+			C* component = allocateComponent();
+			
+			entityMap[component->id] = entity;
+			componentMap[entity] = component->id;
 
-			// Register Entity's component
-			ComponentId id = createComponentId();
-			indexMap[id] = numComponents;
-			entityMap[id] = entity;
-			componentMap[entity] = id;
-
-			C& component = getNewComponent(numComponents);
-			component.id = id;
-
-			numComponents++;
-
-			return &component;
+			return component;
 		}
 
 
@@ -79,7 +81,7 @@ namespace ECS {
 					until the Controller is cleaned by calling clean().
 					Does nothing if the Entity doesn't the particular component.
 		*/
-		void deleteComponent(Entity* entity) {
+		void deleteComponent(Entity* entity) override {
 			auto iterator = componentMap.find(entity);
 			if( iterator == componentMap.end() ) return;
 			componentsToDelete.insert(iterator->second);
@@ -114,16 +116,16 @@ namespace ECS {
 
 			// Find component primary list
 			unsigned int index = iterator->second;
-			unsigned int primaryListSize = (unsigned int) primaryList.size();
+			unsigned int primaryListSize = (unsigned int) components.size();
 			if( index < primaryListSize )
-				return &primaryList.at(index);
+				return &components.at(index);
 
-			// Find component in secondary list
+			// Find component in list of new components
 			unsigned int adjustedIndex = (index - primaryListSize);
 			unsigned int listIndex = adjustedIndex / SECONDARY_LIST_SIZE;
 			unsigned int elementIndex = adjustedIndex % SECONDARY_LIST_SIZE;
 
-			return &secondaryLists.at(listIndex).at(elementIndex);
+			return &newComponents.at(listIndex).at(elementIndex);
 		}
 
 		
@@ -131,58 +133,13 @@ namespace ECS {
 		 * @brief	Deletes components that are marked for deletion, and compress the data structure.
 		 *			This invalidated all pointers to Components returned by the controller
 		*/
-		void clean() {
-			compress();
-
-			// we assume that the lists have been compressed when deleting
-			for( auto& componentId : componentsToDelete ) {
-				auto entity = entityMap.find(componentId)->second;
-				unsigned int index = indexMap.find(componentId)->second;
-
-				auto& component = primaryList.at(index);
-
-				// Move last component
-				if( (index+1) < numComponents ) {
-					auto& last = primaryList.at(index);	
-					component = last;
-					indexMap.at(last.id) = index;
-				}
-
-				// Delete component
-				componentMap.erase(entity);
-				entityMap.erase(componentId);
-				indexMap.erase(componentId);
-
-				numComponents--;
-			}
+		void clean() override {
+			moveNewComponents();
+			deleteComponents();			
 		}
 
 
-		/**
-		 * @brief	Compresses the primary and secondary list into a single consecutive memory block.
-		 *			This invalidated all pointers to Components returned by the controller
-		*/
-		void compress() {
-			auto numSecondaryLists = secondaryLists.size();
-			if( numSecondaryLists == 0 ) return;
-
-			unsigned int primaryListSize = (unsigned int) primaryList.size();
-			unsigned int insertIndex = primaryListSize;
-			unsigned int remainingComponents = numComponents - primaryListSize;
-
-			primaryList.resize(numComponents);
-			
-			for( auto& secondaryList : secondaryLists ) {
-				for( auto& component : secondaryList ) {
-					if( insertIndex >= numComponents ) break;
-					auto& newDestination = primaryList.at(insertIndex);
-					newDestination = component;
-					insertIndex++;
-				}
-			}
-
-			secondaryLists.clear();
-		}
+		
 
 
 		/*
@@ -217,31 +174,83 @@ namespace ECS {
 
 
 		/**
-		 * @brief	Finds the component for the given index. This component may reside in the primaray list
-					or one of the secondary lists. If the index goes beyond current number of secondary lists
-					then a new secondary list is created.
-
-		 * @param	index	The index of the component (typically its number-1)
-		 * @return	Reference to the component 
+		 * @brief	Adds a component with the given ID to the list of new components	
+		 * @return	Pointer to the newly added component
 		*/
-		C& getNewComponent(unsigned int index) {
-			// Check if resides in primary list
-			unsigned int primaryListSize = (unsigned int) primaryList.size();
-			if( index < primaryListSize )
-				return primaryList.at(index);
+		C* allocateComponent() {
+			ComponentId id = createComponentId();
+			unsigned int index = numComponents;
 
-			// FInd place in secondary list
-			unsigned int adjustedIndex = (index - primaryListSize);
-			unsigned int listIndex = adjustedIndex / SECONDARY_LIST_SIZE;
-			unsigned int elementIndex = adjustedIndex % SECONDARY_LIST_SIZE;
-
-			if( listIndex == secondaryLists.size() ) {
+			if( newComponents.size() == 0 || newComponents.back().size() == SECONDARY_LIST_SIZE ) {
 				// All lists are full - create new secondary list
-				secondaryLists.emplace_back();
-				secondaryLists.back().resize(SECONDARY_LIST_SIZE);
+				newComponents.emplace_back();
+				newComponents.back().reserve(SECONDARY_LIST_SIZE);
 			}
-			return secondaryLists.at(listIndex).at(elementIndex);
+
+			auto& list = newComponents.back();
+			list.emplace_back();
+
+			auto& newComponent = list.back();
+			newComponent.id = id;			
+			indexMap[id] = index;
+
+			numComponents++;
+
+			return &newComponent;
 		}
+
+
+		/**
+		 * @brief	Move all new components into the primary list (components), which is consecutive in memory
+		 *			This invalidated all pointers to Components returned by the controller
+		*/
+		void moveNewComponents() {
+			auto numNewComponentLists = newComponents.size();
+			if( numNewComponentLists == 0 ) return;
+
+			unsigned int primaryListSize = (unsigned int)components.size();
+			unsigned int insertIndex = primaryListSize;
+			unsigned int remainingComponents = numComponents - primaryListSize;
+
+			components.resize(numComponents);
+
+			for( auto& secondaryList : newComponents ) {
+				for( auto& component : secondaryList ) {
+					if( insertIndex >= numComponents ) break;
+					auto& newDestination = components.at(insertIndex);
+					newDestination = component;
+					insertIndex++;
+				}
+			}
+
+			newComponents.clear();
+		}
+
+		
+		void deleteComponents() {
+			// we assume that the lists have been compressed when deleting
+			for( auto& componentId : componentsToDelete ) {
+				auto entity = entityMap.find(componentId)->second;
+				unsigned int index = indexMap.find(componentId)->second;
+
+				auto& component = components.at(index);
+
+				// Move last component to the now empty slot
+				if( (index + 1) < numComponents ) {
+					auto& last = components.at(index);
+					component = last;
+					indexMap.at(last.id) = index;
+				}
+
+				// Delete component
+				componentMap.erase(entity);
+				entityMap.erase(componentId);
+				indexMap.erase(componentId);
+
+				numComponents--;
+			}
+		}
+
 
 
 	private:
@@ -258,11 +267,14 @@ namespace ECS {
 
 		std::unordered_set<ComponentId> componentsToDelete;
 
+		std::vector<std::vector<C>> newComponents;
+
 		unsigned int numComponents = 0;
-		std::vector<C> primaryList;
+		std::vector<C> components;
+		
 
 		// Temporary storage for components created in between compress() calls
-		std::vector<std::vector<C>> secondaryLists;
+		//std::vector<std::vector<C>> secondaryLists;
 	};
 
 

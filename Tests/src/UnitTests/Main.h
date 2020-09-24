@@ -5,6 +5,8 @@
 
 #include "ComponentController.h"
 #include "Signature/BitManipulator.h"
+#include "Signature/Signature.h"
+#include "Signature/SignatureArray.h"
 
 int start(int argc, char* argv[]) {
 	int result = Catch::Session().run(argc, argv);

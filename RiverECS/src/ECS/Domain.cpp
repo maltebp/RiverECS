@@ -6,27 +6,45 @@
 
 namespace ECS {
 
+	/**
+	 * @brief 
 
-	Domain::Domain(){}
+	*/
+	Domain::Domain() : signatures(5000) {}
 	Domain::~Domain(){}
 
+
 	Entity* Domain::createEntity() {
+		/* This has to be implemented in the .cpp file, due to cyclic includes */
 		auto entity = new Entity(*this);
-		entities.insert(entity);
+		newEntities.emplace(entity);		
 		return entity;
 	}
 
+	void Domain::clean() {
+
+		// Adjust size of signaturearray
+		signatures.setSignatureSize(ComponentTypeRegistry::getNumTypes());
+		
+		// Move new entities
+		entities.reserve(entities.size() + newEntities.size());
+		for( auto& newEntity : newEntities ) {
+			entities.push_back(newEntity);
+		}
 
 
-	void Domain::flush() {
+
 		// Delete entity components
 		for( auto& entity : entitiesToDelete ) {
 			delete entity;
 		}
+
+
 	}
 
 
 	void Domain::destroyEntity(Entity* entity) {
+		/* This has to be implemented in the .cpp file, due to cyclic includes */
 		if( entitiesToDelete.find(entity) != entitiesToDelete.end() )
 			entitiesToDelete.insert(entity);
 	}

@@ -8,6 +8,15 @@ namespace ECS {
 	public:
 		using std::runtime_error::runtime_error;
 	};
+
+
+	class MemoryAllocationException : public Exception {
+	public:
+		MemoryAllocationException(unsigned int memorySize) :
+			Exception("Memory allocation failed when trying to allocate " + std::to_string(memorySize) + " bytes") {
+		}
+	};
+
 }
 
 

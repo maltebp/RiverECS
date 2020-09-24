@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <functional>
 
 #include "ECS/Exception.h"
 
@@ -25,6 +26,14 @@ namespace ECS {
 		 * @param	size	Number of bits to manipulate in the data
 		*/
 		BitManipulator(unsigned char* data, unsigned int numBits);
+
+
+		/**
+		 * @brief	Sets the data the BitManipulator is supposed to operate on
+		 * @param data	Pointer to array of data
+		 * @param numBits	Number of bits to manipulate in the dat
+		*/
+		void setData(unsigned char* data, unsigned int numBits);
 
 		/**
 		 * @return	Whether or not the i'th bit is set 
@@ -65,6 +74,19 @@ namespace ECS {
 		 * @return	The data (bits) which the manipulator is operation on
 		*/
 		unsigned char* getBits();
+
+		/**
+		 * @return	The number of bits the manipulator is operating on, on the given data (meaning, it's not the data size)
+		*/
+		unsigned int getSize();
+
+
+		/**
+		 * @brief Calls the callback for each bit set in the data, starting from the lowest bit to the last.
+		 *
+		 * @param callback	Has the structure 'void callback(unsigned int bitIndex)'
+		*/
+		void forEachSetBit(std::function<void(unsigned int)> callback);
 
 
 	private:

@@ -36,6 +36,12 @@
     <ClInclude Include="src\UnitTests\Signature\BitManipulator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\UnitTests\Signature\Signature.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnitTests\Signature\SignatureArray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">

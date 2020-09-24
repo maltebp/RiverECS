@@ -1,4 +1,14 @@
 
+DESIGN CHOICES
+
+
+    - ComponentController has to inherit from a base class, since we can't store templated classes in array. This means we also have
+        common virtual functions.
+    - New components won't be iterated until next domain flush, but can be accessed via the Entity it was assigned
+
+
+
+
 
 ENTITY SIGNATURE ALGORITHM
 Use a customized bitset-datastructure. This is an array of bitsets with an element for each Entity in the domain. The bitsets has a bit for each possible component in the Domain.
