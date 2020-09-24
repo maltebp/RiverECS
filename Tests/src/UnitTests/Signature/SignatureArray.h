@@ -239,4 +239,34 @@ TEST_CASE("Testing resing array", "[signature_array]") {
 }
 
 
+TEST_CASE("Testing reallocation of array", "[signature_array]") {
+	ECS::SignatureArray signatureArray(15);
+	signatureArray.setSignatureSize(10);
+
+	// List of sets of signatures bits to set
+	std::vector<std::set<unsigned int>> signatures{
+		{ 0, 2, 5, 7 },
+		{ 0, 1, 5 },
+		{ 7, 8, 9 },
+		{ 0, 1, 2, 3, 4 }
+	};
+
+	// Setting bits for each signature
+	for( int i = 0; i < signatures.size(); i++ ) {
+		auto signatureIndex = signatureArray.add();
+		for( auto& bit : signatures[i] ) {
+			signatureArray.setSignatureBit(signatureIndex, bit);
+		}
+	}
+
+	// Checking all bits for each signature (0-9)
+	for( int i = 0; i < signatures.size(); i++ ) {
+		for( int bit = 0; bit < 10; bit++ ) {
+			REQUIRE(signatureArray.getSignatureBit(i, bit) == (signatures[i].find(bit) != signatures[i].end()));
+		}
+	}
+}
+
+
+
 
