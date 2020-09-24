@@ -1,4 +1,5 @@
-﻿  Domain.cpp
-  Entity.cpp
+﻿  BitManipulator.cpp
+  Signature.cpp
+  SignatureArray.cpp
   Generating Code...
   RiverECS.vcxproj -> C:\Users\Malte\Projects\RiverECS\RiverECS\bin\Debug-x64\RiverECS.lib

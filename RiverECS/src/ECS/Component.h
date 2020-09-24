@@ -1,7 +1,11 @@
 #pragma once
 
+#include <string>
+
 
 namespace ECS {
+
+	using ComponentTypeId = std::string;
 
 	// Represents a component
 	using ComponentId = uint32_t;

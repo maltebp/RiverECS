@@ -31,6 +31,15 @@ namespace ECS {
 		}
 
 
+
+		template <typename C>
+		void getEntityComponent(Entity* entity) {
+			if(  )
+
+
+		}
+
+
 		/*template <typename T>
 		T* getEntityComponent(Entity* entity) {
 

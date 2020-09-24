@@ -4,8 +4,9 @@
 #include <catch.h>
 
 #include "ComponentController.h"
+#include "Signature/BitManipulator.h"
 
 int start(int argc, char* argv[]) {
 	int result = Catch::Session().run(argc, argv);
-	return 1;
+	return result;
 }

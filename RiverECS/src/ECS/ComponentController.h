@@ -4,7 +4,6 @@
 #include <unordered_map>
 #include <string>
 #include <limits>
-#include <string>
 #include <type_traits>
 
 #include "Component.h"
@@ -21,7 +20,7 @@ namespace ECS {
 		MultipleComponentException(const std::string& componentName) : Exception("Entity already has component '" + componentName + "'") {}
 	};
 
-	// Thrown if the last compnent id has been used 
+	// Thrown if the all compnent id has been used 
 	class MaxComponentsException : public Exception {
 	public:
 		MaxComponentsException(const std::string& componentName) : Exception("Max number of components (" + std::to_string(MAX_COMPONENT_ID) + ") has been created for component '" + componentName + "'") {}
@@ -115,7 +114,7 @@ namespace ECS {
 
 			// Find component primary list
 			unsigned int index = iterator->second;
-			unsigned int primaryListSize = primaryList.size();
+			unsigned int primaryListSize = (unsigned int) primaryList.size();
 			if( index < primaryListSize )
 				return &primaryList.at(index);
 
@@ -167,7 +166,7 @@ namespace ECS {
 			auto numSecondaryLists = secondaryLists.size();
 			if( numSecondaryLists == 0 ) return;
 
-			unsigned int primaryListSize = primaryList.size();
+			unsigned int primaryListSize = (unsigned int) primaryList.size();
 			unsigned int insertIndex = primaryListSize;
 			unsigned int remainingComponents = numComponents - primaryListSize;
 
@@ -227,7 +226,7 @@ namespace ECS {
 		*/
 		C& getNewComponent(unsigned int index) {
 			// Check if resides in primary list
-			unsigned int primaryListSize = primaryList.size();
+			unsigned int primaryListSize = (unsigned int) primaryList.size();
 			if( index < primaryListSize )
 				return primaryList.at(index);
 
