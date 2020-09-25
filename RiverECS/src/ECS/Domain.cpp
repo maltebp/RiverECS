@@ -17,7 +17,6 @@ namespace ECS {
 		/* This has to be implemented in the .cpp file, due to cyclic includes */
 		auto entity = new Entity(*this);
 		newEntities.emplace(entity);	
-		entityComponentsToCreate.emplace(entity);
 		return entity;
 	}
 
@@ -45,7 +44,7 @@ namespace ECS {
 			}
 		}
 
-		// Moving new components into signatures
+		// Delete entity components
 		for( auto& pair : entityComponentsToDelete ) {
 			auto entity = pair.first;
 			auto signatureIndex = entitySignatureIndexMap.find(entity)->second;
@@ -55,12 +54,10 @@ namespace ECS {
 			}
 		}
 
-		// Delete entity components
+		// Delete entities
 		for( auto& entity : entitiesToDelete ) {
 			auto signatureIndex = entitySignatureIndexMap.find(entity)->second;
 			
-			
-
 			auto movedSignature = signatures.remove(signatureIndex);
 			if( movedSignature != 0 ) {
 				// Change signature index of moved signature (signature which was moved into the deleted signature's place)
@@ -84,6 +81,8 @@ namespace ECS {
 		for( auto& componentController : componentControllers ) {
 			componentController.second->clean();
 		}
+
+		// TODO: Clear lists!!!! VERY IMPORTANT
 	}
 
 

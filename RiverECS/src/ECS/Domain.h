@@ -31,7 +31,9 @@ namespace ECS {
 			RV_ECS_ASSERT_COMPONENT_TYPE(C);
 			auto componentController = getComponentController<C>();		
 			auto component = componentController->createComponent(entity);
-			entityComponentsToCreate.find(entity)->second.push_back(ComponentTypeRegistry::getTypeId<C>());
+
+
+			entityComponentsToCreate[entity].push_back(ComponentTypeRegistry::getTypeId<C>());
 			return component;
 		}
 
@@ -45,12 +47,22 @@ namespace ECS {
 		}
 
 		template <typename C>
-		C* removeEntityComponent(Entity* entity) {
+		void removeEntityComponent(Entity* entity) {
 			RV_ECS_ASSERT_COMPONENT_TYPE(C);
-			auto componentController = getComponentController<C>();
-			
-
+			entityComponentsToDelete[entity].push_back(ComponentTypeRegistry::getTypeId<C>());
 		}
+
+
+
+
+
+
+
+		template <typename ... C, typename Func>
+		void forEachEntity(Func callback) {
+			func 
+		}
+
 
 
 		/*template <typename T>
@@ -78,6 +90,9 @@ namespace ECS {
 		void clean();
 
 
+
+		
+	private:
 		template <typename C>
 		ComponentController<C>* getComponentController() {
 			RV_ECS_ASSERT_COMPONENT_TYPE(C);
@@ -88,15 +103,14 @@ namespace ECS {
 			if( controllerIterator != componentControllers.end() )
 				return (ComponentController<C>*) controllerIterator->second;
 
-			return (ComponentController<C>*) componentControllers.emplace(componentTypeId, new ComponentController<C>()).second;
+			auto emplaceResult = componentControllers.emplace(componentTypeId, new ComponentController<C>());
+			return (ComponentController<C>*) emplaceResult.first->second;
 		}
 
 
-		
 	private:
 		std::vector<Entity*> entities;
 
-	private:
 		/**
 		 * @brief Maps an Entity to its index into the 'entities' vector */
 		std::unordered_map<Entity*, unsigned int> entityIndices;

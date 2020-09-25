@@ -91,10 +91,12 @@
     <ClInclude Include="src\Log.h" />
     <ClInclude Include="src\Sandbox\Main.h" />
     <ClInclude Include="src\UnitTests\ComponentController.h" />
+    <ClInclude Include="src\UnitTests\Entity\Entity.h" />
     <ClInclude Include="src\UnitTests\Main.h" />
     <ClInclude Include="src\UnitTests\Signature\BitManipulator.h" />
     <ClInclude Include="src\UnitTests\Signature\Signature.h" />
     <ClInclude Include="src\UnitTests\Signature\SignatureArray.h" />
+    <ClInclude Include="src\UnitTests\TestComponents.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp" />

@@ -104,11 +104,6 @@ namespace ECS {
 		if( newSignatureSize < signatureSize )
 			throw new SignatureSizeReducedException(signatureSize, newSignatureSize);
 		
-
-		// - - - - + + + + - - - - + + + + - - - -
-
-		// - - - - - + + + + + - - - - - + + + + + - - - - -
-		
 		// Check if more parts are required (i.e. we go from 8 to 9 in size)
 		unsigned int newSignatureParts = 1 + (newSignatureSize - 1) / 8;
 		unsigned int partsDifference = newSignatureParts - signatureParts;
@@ -118,11 +113,12 @@ namespace ECS {
 			// Extend memory with memory for new parts
 			reserveMemory(newSignatureParts * numSignatures + memoryStepSize);
 
-			// Pointers to last part of last signature in old and new data
+			// Pointers to last part of last signature in version of the data
 			unsigned char* oldData = data + (signatureParts-1) + (numSignatures-1) * signatureParts;
 			unsigned char* newData = data + (newSignatureParts-1) + (numSignatures-1) * newSignatureParts;
 
-			// Iterate over number of signatures backwards
+			// Create new empty parts in the each signatures new place place, and move old parts
+			// from signatures original place
 			for( int signatureIndex = numSignatures - 1; signatureIndex >= 0; signatureIndex-- ) {
 				int partIndex = newSignatureParts - 1;
 

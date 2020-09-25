@@ -4,7 +4,9 @@
 
 
 Left off at:
-    Testing SignatureArray, and then implement creation of entities in Domain 
+    Just finished implementing the creation and deletion of components in the Domain.
+    Currently NOT working, so needs to be fixed and tested THOROUGHLY
+    Note that lists are not cleaned in the Domain.clean()
 
 
 General:

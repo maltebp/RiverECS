@@ -6,7 +6,7 @@
 #include "Components/Components.h"
 
 #include "Log.h"
-#
+
 
 struct TestComponent : ECS::Component {
 	unsigned value = 0;
@@ -20,41 +20,37 @@ void run() {
 	LOG("Starting sandbox");
 
 	ECS::Domain domain;
-	ECS::ComponentController<TestComponent> componentController;
 	std::vector<ECS::Entity*> entities;
 
-	for( int i = 0; i < 50; i++ ) {
-		ECS::Entity* entity = domain.createEntity();
+	auto entity = domain.createEntity();
+	entities.push_back(entity);
 
-		auto component = componentController.createComponent(entity);
-		component->value = i;
-		entities.push_back(entity);
-	}
+	auto component = entity->addComponent<TestComponent>();
 
-	// Delete entity
-	/*{
-		auto entity = entities.at(10);
-		componentController.deleteComponent(entity);
-
-		entity = entities.at(30);
-		componentController.deleteComponent(entity);
-
-		componentController.clean();
-	}*/
+	component->value = 10;
 
 
-	for( auto entity : entities ) {
-		auto component = componentController.getComponent(entity);
-		if( component == nullptr ) continue;
+	domain.clean();
 
-		LOG("");
-		//LOG("component.id = " << component->id);
-		LOG("component.value = " << component->value);
-	}
+	LOG(entity->getComponent<TestComponent>()->value);
+
+	entity->removeComponent<TestComponent>();
+	
+	if( entity->getComponent<TestComponent>() != nullptr )
+		LOG("Has component");
+	else
+		LOG("Doesn't have component");
+
+	domain.clean();
+	
+	if( entity->getComponent<TestComponent>() != nullptr )
+		LOG("Has component");
+	else
+		LOG("Doesn't have component");
+
 }
 
 int start(int argc, char* argv[]) {
-	run();
 	run();
 	
 

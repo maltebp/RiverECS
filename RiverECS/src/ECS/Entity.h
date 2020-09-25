@@ -25,7 +25,7 @@ namespace ECS {
 		template <typename C>
 		void removeComponent() {
 			RV_ECS_ASSERT_COMPONENT_TYPE(C);
-			domain.getEntityComponent<C>(this);
+			domain.removeEntityComponent<C>(this);
 		}
 
 		//void destroy();

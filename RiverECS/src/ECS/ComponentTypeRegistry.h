@@ -26,9 +26,9 @@ namespace ECS {
 			auto typeIdIterator = types.find(typeName);
 			if( typeIdIterator != types.end() ) return typeIdIterator->second;
 
-			auto typeId = types.emplace(typeName, numTypes++);
+			auto typeId = types.emplace(typeName, numTypes++).first->second;
 
-			return typeId.second;
+			return typeId;
 		}
 
 
@@ -43,9 +43,6 @@ namespace ECS {
 
 	};
 
-
-	/*unsigned int ComponentTypeRegistry::numTypes = 0;
-	std::unordered_map<std::string, ComponentTypeId> ComponentTypeRegistry::types;*/
 }
 
 
