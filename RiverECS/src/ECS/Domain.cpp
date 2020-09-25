@@ -33,6 +33,7 @@ namespace ECS {
 			// Adding signature (not registering components)
 			auto signatureIndex = signatures.add();
 			entitySignatureIndexMap.emplace(newEntity, signatureIndex);
+			signatureIndexEntityMap.emplace(signatureIndex, newEntity);
 		}
 
 		// Moving new components into signatures

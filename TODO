@@ -4,14 +4,14 @@
 
 
 Left off at:
-    Just finished implementing the creation and deletion of components in the Domain.
-    Currently NOT working, so needs to be fixed and tested THOROUGHLY
+    Creating the querying of entities matching component list (only quick draft in forEachEntity)
     Note that lists are not cleaned in the Domain.clean()
 
 
 General:
 
 
+    ☐ ERROR: If a entities are queried with components, which hasn't been created yet, it crashes (just make sure component is added before creating search signature)
 
     ☐ Create pre-allocated array of entities instead of doing dynamic allocation each time
     ☐ Allow user to set number of component types to preallocate

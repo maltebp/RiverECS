@@ -56,11 +56,17 @@ namespace ECS {
 
 
 
-
-
 		template <typename ... C, typename Func>
 		void forEachEntity(Func callback) {
-			func 
+
+			// Store Signature for future use
+			Signature signature(ComponentTypeRegistry::getNumTypes());
+			setComponentInSignature<C...>(signature);
+
+			signatures.forMatchingSignatures(signature, [this, &callback](unsigned int signatureIndex) {
+				Entity* entity = this->signatureIndexEntityMap.find(signatureIndex)->second;
+				callback(entity, getEntityComponent<C>(entity)...);
+			});
 		}
 
 
@@ -105,6 +111,19 @@ namespace ECS {
 
 			auto emplaceResult = componentControllers.emplace(componentTypeId, new ComponentController<C>());
 			return (ComponentController<C>*) emplaceResult.first->second;
+		}
+
+
+
+		template <typename CLast>
+		void setComponentInSignature(Signature& signature) {
+			signature.set(ComponentTypeRegistry::getTypeId<CLast>());
+		}
+
+		template <typename CFirst, typename CSecond, typename ... CRest>
+		void setComponentInSignature(Signature& signature) {
+			signature.set(ComponentTypeRegistry::getTypeId<CFirst>());
+			setComponentInSignature<CSecond, CRest...>(signature);
 		}
 
 

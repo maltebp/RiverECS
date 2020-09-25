@@ -12,7 +12,13 @@ struct TestComponent : ECS::Component {
 	unsigned value = 0;
 };
 
+struct TestComponent2 : ECS::Component {
+	unsigned value = 0;
+};
 
+struct TestComponent3 : ECS::Component {
+	unsigned value = 0;
+};
 
 
 void run() {
@@ -25,28 +31,25 @@ void run() {
 	auto entity = domain.createEntity();
 	entities.push_back(entity);
 
-	auto component = entity->addComponent<TestComponent>();
-
+	entity->addComponent<TestComponent>();
+	auto component = entity->addComponent<TestComponent2>();
 	component->value = 10;
 
+	domain.createEntity()->addComponent<TestComponent>()->value = 15;
+	domain.createEntity()->addComponent<TestComponent2>()->value = 15;
+	domain.createEntity();
+	domain.createEntity()->addComponent<TestComponent>()->value = 20;
+	domain.createEntity()->addComponent<TestComponent>()->value = 25;
+	domain.createEntity();
+	domain.createEntity()->addComponent<TestComponent>()->value = 30;
 
 	domain.clean();
 
-	LOG(entity->getComponent<TestComponent>()->value);
 
-	entity->removeComponent<TestComponent>();
-	
-	if( entity->getComponent<TestComponent>() != nullptr )
-		LOG("Has component");
-	else
-		LOG("Doesn't have component");
-
-	domain.clean();
-	
-	if( entity->getComponent<TestComponent>() != nullptr )
-		LOG("Has component");
-	else
-		LOG("Doesn't have component");
+	domain.forEachEntity<TestComponent, TestComponent2>([](ECS::Entity* e, TestComponent* c, TestComponent2* c2) {
+		LOG(c->value);
+		LOG(c2->value);
+	});
 
 }
 

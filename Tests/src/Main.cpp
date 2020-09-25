@@ -1,6 +1,6 @@
 
-#define UNIT_TESTS	1
 
+#define UNIT_TESTS	0
 
 #if UNIT_TESTS == 0
 	#include "Sandbox/Main.h"

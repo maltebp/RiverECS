@@ -1,5 +1,3 @@
 ﻿  Main.cpp
 C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\ComponentTypeRegistry.h(36,1): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
-C:\Users\Malte\Projects\RiverECS\Tests\src\UnitTests\Signature\BitManipulator.h(22,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Malte\Projects\RiverECS\Tests\src\UnitTests\Main.h(57,59): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
   Tests.vcxproj -> C:\Users\Malte\Projects\RiverECS\Tests\bin\Debug-x64\Tests.exe
