@@ -4,7 +4,8 @@
 
 
 Left off at:
-    Creating the querying of entities matching component list (only quick draft in forEachEntity)
+    Just finished implementing special case for single component queries (and its working)
+    Fix bug stated below
     Note that lists are not cleaned in the Domain.clean()
 
 
@@ -12,11 +13,10 @@ General:
 
 
     ☐ ERROR: If a entities are queried with components, which hasn't been created yet, it crashes (just make sure component is added before creating search signature)
-
     ☐ Create pre-allocated array of entities instead of doing dynamic allocation each time
     ☐ Allow user to set number of component types to preallocate
     ☐ Clean ComponentControllers frequently by sorting components according to entity id
-    ☐ Cache queries
+    ☐ Cache signature queries (in SignatureArray)
     ☐ Clean up domain properly (i.e. destroy componentcontrollers))
     ☐ Change SignatureArray to handle larger bit indices (change unsigned int to size_t)
 
@@ -24,5 +24,4 @@ General:
     Tests:
         ☐ Create and destroy entity in same cycle
         ✔ Test resizing of signatures
-        ☐ SignatureArray
-        
+        ☐ Query entities with components, which no entity has yet

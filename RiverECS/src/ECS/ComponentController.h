@@ -5,6 +5,7 @@
 #include <string>
 #include <limits>
 #include <type_traits>
+#include <functional>
 
 #include "Component.h"
 #include "Exception.h"
@@ -129,7 +130,19 @@ namespace ECS {
 			return &newComponents.at(listIndex).at(elementIndex);
 		}
 
-		
+
+		/**
+		 * @brief	Call the given callback for each Entity which has this Component
+		 * @param callback	The callback to call
+		*/
+		void forEachEntity(std::function<void (Entity*, C*)> callback) {
+			for( auto& component : components ) {
+				auto entity = entityMap.find(component.id)->second;
+				callback(entity, &component);
+			}
+		}
+
+
 		/**
 		 * @brief	Deletes components that are marked for deletion, and compress the data structure.
 		 *			This invalidated all pointers to Components returned by the controller
@@ -137,10 +150,7 @@ namespace ECS {
 		void clean() override {
 			moveNewComponents();
 			deleteComponents();			
-		}
-
-
-		
+		}		
 
 
 		/*

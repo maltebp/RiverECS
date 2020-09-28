@@ -91,7 +91,7 @@
     <ClInclude Include="src\Log.h" />
     <ClInclude Include="src\Sandbox\Main.h" />
     <ClInclude Include="src\UnitTests\ComponentController.h" />
-    <ClInclude Include="src\UnitTests\Entity\Entity.h" />
+    <ClInclude Include="src\UnitTests\Entity.h" />
     <ClInclude Include="src\UnitTests\Main.h" />
     <ClInclude Include="src\UnitTests\Signature\BitManipulator.h" />
     <ClInclude Include="src\UnitTests\Signature\Signature.h" />

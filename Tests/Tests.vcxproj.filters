@@ -42,7 +42,7 @@
     <ClInclude Include="src\UnitTests\Signature\SignatureArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\UnitTests\Entity\Entity.h">
+    <ClInclude Include="src\UnitTests\Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\UnitTests\TestComponents.h">

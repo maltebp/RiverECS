@@ -12,7 +12,7 @@
 #include "Signature/BitManipulator.h"
 #include "Signature/Signature.h"
 #include "Signature/SignatureArray.h"
-#include "Entity/Entity.h"
+#include "Entity.h"
 // -----------------------------------------------------
 
 

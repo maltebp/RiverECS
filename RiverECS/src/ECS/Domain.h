@@ -3,6 +3,7 @@
 #include <vector>
 #include <unordered_set>
 #include <unordered_map>
+#include <functional>
 
 #include "ComponentTypeRegistry.h"
 #include "ComponentController.h"
@@ -32,7 +33,6 @@ namespace ECS {
 			auto componentController = getComponentController<C>();		
 			auto component = componentController->createComponent(entity);
 
-
 			entityComponentsToCreate[entity].push_back(ComponentTypeRegistry::getTypeId<C>());
 			return component;
 		}
@@ -46,30 +46,37 @@ namespace ECS {
 			return componentController->getComponent(entity);
 		}
 
+
 		template <typename C>
 		void removeEntityComponent(Entity* entity) {
 			RV_ECS_ASSERT_COMPONENT_TYPE(C);
 			entityComponentsToDelete[entity].push_back(ComponentTypeRegistry::getTypeId<C>());
+		}						  
+
+
+
+
+
+
+		template <typename C>
+		void forEachEntity(std::function<void (Entity*, C*)> callback) {
+			auto componentController = getComponentController<C>();
+			componentController->forEachEntity(callback);
 		}
-
-
-
 
 
 		template <typename ... C, typename Func>
 		void forEachEntity(Func callback) {
-
-			// Store Signature for future use
+			
+			// TODO: Store signature across queries (no need to create new each query)
 			Signature signature(ComponentTypeRegistry::getNumTypes());
-			setComponentInSignature<C...>(signature);
-
+			addComponentTypeToSignature<C...>(signature);
+			
 			signatures.forMatchingSignatures(signature, [this, &callback](unsigned int signatureIndex) {
 				Entity* entity = this->signatureIndexEntityMap.find(signatureIndex)->second;
 				callback(entity, getEntityComponent<C>(entity)...);
 			});
 		}
-
-
 
 		/*template <typename T>
 		T* getEntityComponent(Entity* entity) {
@@ -114,16 +121,15 @@ namespace ECS {
 		}
 
 
-
 		template <typename CLast>
-		void setComponentInSignature(Signature& signature) {
+		void addComponentTypeToSignature(Signature& signature) {
 			signature.set(ComponentTypeRegistry::getTypeId<CLast>());
 		}
 
 		template <typename CFirst, typename CSecond, typename ... CRest>
-		void setComponentInSignature(Signature& signature) {
+		void addComponentTypeToSignature(Signature& signature) {
 			signature.set(ComponentTypeRegistry::getTypeId<CFirst>());
-			setComponentInSignature<CSecond, CRest...>(signature);
+			addComponentTypeToSignature<CSecond, CRest...>(signature);
 		}
 
 

@@ -3,7 +3,7 @@
 
 #include <catch.h>
 
-#include "../TestComponents.h"
+#include "TestComponents.h"
 #include "Log.h"
 
 #include <ECS.h>
@@ -142,4 +142,80 @@ TEST_CASE("Multiple components", "[entity]") {
 	REQUIRE(entity->getComponent<ComponentF>() != nullptr);
 	REQUIRE(entity->getComponent<ComponentG>() != nullptr);
 	REQUIRE(entity->getComponent<ComponentH>() == nullptr);
+}
+
+
+
+
+
+
+
+
+TEST_CASE("Signature search", "[entity]") {
+	
+	ECS::Domain domain;
+	ECS::Entity* entity;
+
+	entity = domain.createEntity();
+	entity->addComponent<ComponentA>();
+	entity->addComponent<ComponentF>();
+	entity->addComponent<ComponentH>();
+
+	entity = domain.createEntity();
+	entity->addComponent<ComponentA>();
+	entity->addComponent<ComponentB>();
+
+	entity = domain.createEntity();
+	entity->addComponent<ComponentA>();
+	entity->addComponent<ComponentB>();
+
+	entity = domain.createEntity();
+	entity->addComponent<ComponentA>();
+	entity->addComponent<ComponentB>();
+	entity->addComponent<ComponentC>();
+
+	entity = domain.createEntity();
+	entity->addComponent<ComponentA>();
+	entity->addComponent<ComponentB>();
+	entity->addComponent<ComponentC>();
+	entity->addComponent<ComponentD>();
+	entity->addComponent<ComponentE>();
+	entity->addComponent<ComponentF>();
+	entity->addComponent<ComponentG>();
+
+	entity = domain.createEntity();
+	entity->addComponent<ComponentA>();
+	entity->addComponent<ComponentB>();
+	entity->addComponent<ComponentC>();
+	entity->addComponent<ComponentD>();
+
+	domain.clean();
+	
+	int entityCount;
+	
+	
+	entityCount = 0;
+	domain.forEachEntity<ComponentA, ComponentB>([&entityCount](auto entity, auto a, auto b) {
+		entityCount++;
+	});
+	REQUIRE(entityCount == 5);
+
+	entityCount = 0;
+	domain.forEachEntity<ComponentC>([&entityCount](auto entity, auto c) {
+		entityCount++;
+		});
+	REQUIRE(entityCount == 3);
+
+
+	entityCount = 0;
+	domain.forEachEntity<ComponentC, ComponentF>([&entityCount](auto entity, auto c, auto f) {
+		entityCount++;
+		});
+	REQUIRE(entityCount == 1);
+
+	entityCount = 0;
+	domain.forEachEntity<ComponentA>([&entityCount](auto entity, auto a) {
+		entityCount++;
+		});
+	REQUIRE(entityCount == 6);
 }

@@ -6,10 +6,6 @@
 namespace ECS {
 
 	
-
-
-
-
 	// Represents a component
 	using ComponentId = uint32_t;
 
@@ -29,8 +25,6 @@ namespace ECS {
 
 
 	};
-
-
 
 
 
