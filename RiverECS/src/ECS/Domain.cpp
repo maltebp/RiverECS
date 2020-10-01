@@ -78,7 +78,7 @@ namespace ECS {
 			delete entity;
 		}
 
-		// Clean component controllers
+		// Clean component controllers (delete components marked for deletion)
 		for( auto& componentController : componentControllers ) {
 			componentController.second->clean();
 		}
@@ -89,7 +89,7 @@ namespace ECS {
 
 	void Domain::destroyEntity(Entity* entity) {
 		/* This has to be implemented in the .cpp file, due to cyclic includes */
-		if( entitiesToDelete.find(entity) != entitiesToDelete.end() )
+		if( entitiesToDelete.find(entity) == entitiesToDelete.end() )
 			entitiesToDelete.insert(entity);
 	}
 

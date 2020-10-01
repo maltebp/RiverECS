@@ -219,3 +219,118 @@ TEST_CASE("Signature search", "[entity]") {
 		});
 	REQUIRE(entityCount == 6);
 }
+
+
+
+
+
+TEST_CASE("Same Cycle Create and Destroy", "[entity]") {
+	/*	Checking that Entities and Components are handled correctly
+		if they both are destroyed in the same Domain cycle (before
+		cleaning).
+	*/
+
+	ECS::Domain domain;
+
+	// Pre-filling domain with a few entities
+	auto entity1 = domain.createEntity();
+	entity1->addComponent<ComponentA>();
+	entity1->addComponent<ComponentB>();
+
+	auto entity2 = domain.createEntity();
+	entity2->addComponent<ComponentA>();
+	entity2->addComponent<ComponentC>();
+	
+	domain.clean();
+
+	int entityCount;
+	entityCount = 0;
+	domain.forEachEntity<ComponentA>([&entityCount](auto entity, auto a) {
+		entityCount++;
+		});
+	REQUIRE(entityCount == 2);
+
+
+	SECTION("Create and destroy new entity") {
+	
+		
+		// Creating and destroying new entity
+		auto entity3 = domain.createEntity();
+		entity3->addComponent<ComponentA>();
+		entity3->addComponent<ComponentD>();
+
+		REQUIRE(entity3->getComponent<ComponentA>() != nullptr);
+		REQUIRE(entity3->getComponent<ComponentD>() != nullptr);
+
+		domain.destroyEntity(entity3);
+		
+		REQUIRE(domain.getEntityComponent<ComponentA>(entity3) != nullptr);
+		REQUIRE(domain.getEntityComponent<ComponentD>(entity3) != nullptr);
+
+		domain.clean();
+
+		REQUIRE(domain.getEntityComponent<ComponentA>(entity3) == nullptr);
+		REQUIRE(domain.getEntityComponent<ComponentD>(entity3) == nullptr);
+
+		entityCount = 0;
+		domain.forEachEntity<ComponentD>([&entityCount](auto entity, auto a) {
+			entityCount++;
+		});
+		REQUIRE(entityCount == 0);
+	}
+
+
+
+	SECTION("Create and destroy component on new entity") {
+	
+		entity2->addComponent<ComponentD>();
+		REQUIRE(entity2->getComponent<ComponentD>() != nullptr);
+
+		domain.removeEntityComponent<ComponentD>(entity2);
+
+		REQUIRE(domain.getEntityComponent<ComponentD>(entity2) != nullptr);
+
+		domain.clean();
+
+		REQUIRE(domain.getEntityComponent<ComponentD>(entity2) == nullptr);
+
+		entityCount = 0;
+		domain.forEachEntity<ComponentD>([&entityCount](auto entity, auto a) {
+			entityCount++;
+			});
+		REQUIRE(entityCount == 0);
+	}
+
+
+
+	SECTION("Create and destroy both component and entity") {
+
+		// Creating and destroying new entity
+		auto entity3 = domain.createEntity();
+		entity3->addComponent<ComponentA>();
+		entity3->addComponent<ComponentD>();
+
+		domain.removeEntityComponent<ComponentD>(entity3);
+
+		REQUIRE(entity3->getComponent<ComponentA>() != nullptr);
+		REQUIRE(entity3->getComponent<ComponentD>() != nullptr);
+
+		domain.destroyEntity(entity3);
+
+		REQUIRE(domain.getEntityComponent<ComponentA>(entity3) != nullptr);
+		REQUIRE(domain.getEntityComponent<ComponentD>(entity3) != nullptr);
+
+		domain.clean();
+
+		REQUIRE(domain.getEntityComponent<ComponentA>(entity3) == nullptr);
+		REQUIRE(domain.getEntityComponent<ComponentD>(entity3) == nullptr);
+
+		entityCount = 0;
+		domain.forEachEntity<ComponentD>([&entityCount](auto entity, auto a) {
+			entityCount++;
+			});
+		REQUIRE(entityCount == 0);
+	}
+
+
+}
