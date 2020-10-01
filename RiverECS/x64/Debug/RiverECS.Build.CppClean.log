@@ -3,12 +3,10 @@ c:\users\malte\projects\riverecs\riverecs\x64\debug\riverecs.idb
 c:\users\malte\projects\riverecs\riverecs\x64\debug\signaturearray.obj
 c:\users\malte\projects\riverecs\riverecs\x64\debug\signature.obj
 c:\users\malte\projects\riverecs\riverecs\x64\debug\bitmanipulator.obj
-c:\users\malte\projects\riverecs\riverecs\x64\debug\examplecomponent.obj
-c:\users\malte\projects\riverecs\riverecs\x64\debug\componentregistry.obj
 c:\users\malte\projects\riverecs\riverecs\x64\debug\entity.obj
+c:\users\malte\projects\riverecs\riverecs\x64\debug\componenttyperegistry.obj
 c:\users\malte\projects\riverecs\riverecs\x64\debug\domain.obj
 c:\users\malte\projects\riverecs\riverecs\bin\debug-x64\riverecs.lib
-c:\users\malte\projects\riverecs\riverecs\x64\debug\bitmanipulator.obj.enc
 c:\users\malte\projects\riverecs\riverecs\x64\debug\riverecs.tlog\cl.command.1.tlog
 c:\users\malte\projects\riverecs\riverecs\x64\debug\riverecs.tlog\cl.read.1.tlog
 c:\users\malte\projects\riverecs\riverecs\x64\debug\riverecs.tlog\cl.write.1.tlog

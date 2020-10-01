@@ -144,6 +144,7 @@ namespace ECS {
 
 
 	private:
+		// TODO: Change this to unordered_set
 		std::vector<Entity*> entities;
 
 		/**

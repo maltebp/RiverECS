@@ -12,7 +12,14 @@ namespace ECS {
 	Domain::Domain() : signatures(5000) {
 	
 	}
-	Domain::~Domain(){}
+
+
+	Domain::~Domain(){
+		for( auto componentController : componentControllers )
+			delete componentController.second;
+		for( auto entity : entities )
+			delete entity;	
+	}
 
 
 	Entity* Domain::createEntity() {
@@ -76,6 +83,12 @@ namespace ECS {
 			for( auto& componentController : componentControllers ) {
 				componentController.second->deleteComponent(entity);
 			}
+
+			
+			// Remove entity from entities list
+			auto entityIterator = std::find(entities.begin(), entities.end(), entity);
+			if( entityIterator != entities.end() )
+				entities.erase(entityIterator);
 
 			delete entity;
 		}

@@ -87,6 +87,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\catch.h" />
+    <ClInclude Include="src\UnitTests\Overall.h" />
     <ClInclude Include="src\Components\Components.h" />
     <ClInclude Include="src\Log.h" />
     <ClInclude Include="src\Sandbox\Main.h" />

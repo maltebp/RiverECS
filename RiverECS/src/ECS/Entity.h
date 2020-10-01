@@ -35,7 +35,7 @@ namespace ECS {
 	private:
 		Entity(Domain& domain) : domain(domain) {}
 
-		// Prevent entity from being deleted by anyone else than Domain
+		// Prevents entity from being deleted by anyone else than Domain
 		~Entity() {}
 
 		Entity(const Entity& other) = delete;

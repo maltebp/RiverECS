@@ -53,9 +53,6 @@
     <ClCompile Include="src\ECS\Domain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ECS\Entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\ECS\SignatureArray\SignatureArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

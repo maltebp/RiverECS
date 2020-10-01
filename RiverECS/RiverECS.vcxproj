@@ -100,7 +100,6 @@
     <ClCompile Include="src\ECS\SignatureArray\BitManipulator.cpp" />
     <ClCompile Include="src\ECS\SignatureArray\SignatureArray.cpp" />
     <ClCompile Include="src\ECS\Domain.cpp" />
-    <ClCompile Include="src\ECS\Entity.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

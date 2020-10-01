@@ -36,23 +36,16 @@ namespace ECS {
 	}
 
 
-	
 	void SignatureArray::forMatchingSignatures(Signature& signature, std::function<void(unsigned int signatureIndex)> callback) {
-
 		/*	There is no reason to check parts if they are all 0's, so we skip ahead and cut off the end */
 		unsigned int firstPartIndex = signature.getFirstSetBit() < 0 ? 0 : signature.getFirstSetBit() / 8;
 		unsigned int lastPartIndex = signature.getLastSetBit() < 0 ? 0 : signature.getLastSetBit() / 8;
 
 		if( (signatureParts - 1) < lastPartIndex )
-			return;// TODO: Throw exception: they don't match
+			/* The signatures in this array doesn't have enough parts to
+				be matched with the given query, so none will match */
+			return;
 
-		// First check if the query has been cached
-		bool wasCached = checkCachedQuery(signature, callback);
-		if( wasCached ) return;
-
-		// Setup cache
-		cachedQueries.emplace_back(std::make_pair(signature, std::vector<unsigned int>()));
-		auto& cachedSignatureIndices = cachedQueries.back().second;
 
 		// The queried signature's data
 		unsigned char* signatureBits = signature.getBits();
@@ -75,58 +68,9 @@ namespace ECS {
 				}
 			}
 
-			if( match ) cachedSignatureIndices.push_back(signatureIndex);
+			if( match ) callback(signatureIndex);
 		}
-
-		// Run the callback for all the signature indices we just found (and
-		// stored in cachedSignatureIndices
-		for( auto signatureIndex : cachedSignatureIndices ) callback(signatureIndex);
 	}
-
-
-
-	bool SignatureArray::checkCachedQuery(Signature& signature, std::function<void(unsigned int signatureIndex)> callback) {
-		int firstBit = signature.getFirstSetBit();
-		int lastBit = signature.getLastSetBit();
-		int numSetBits = signature.getBitsSet();
-		unsigned int firstPartIndex = firstBit < 0 ? 0 : firstBit / 8;
-		unsigned int lastPartIndex = lastBit < 0 ? 0 : lastBit / 8;
-
-		unsigned char* signatureBits = signature.getBits();
-
-		// For each cached query
-		for( auto cachedQuery : cachedQueries ) {
-			auto& cachedSignature = cachedQuery.first;
-
-			// The signature can't match if either of these are not true, so we can just continue
-			if( firstBit	!= cachedSignature.getFirstSetBit() ||
-				lastBit		!= cachedSignature.getLastSetBit()	||
-				numSetBits	!= cachedSignature.getBitsSet()
-			) continue;
-			
-			// For each part in the signature to check for match
-			auto cachedSignatureBits = cachedSignature.getBits();
-			bool match = true;
-			for( unsigned int partIndex = firstPartIndex; partIndex < lastPartIndex + 1; partIndex++ ) {
-				// The Signatures has to exact matches, so each part must have the same value
-				if( cachedSignatureBits[partIndex] != signatureBits[partIndex] ) {
-					match = false;
-					break;
-				}
-			}
-
-			if( match ) {
-				// Run callback for each signature index cached for the
-				// matching Signature query
-				for( auto signatureIndex : cachedQuery.second ) {
-					callback(signatureIndex);
-				}
-				return true;
-			}
-		}
-		return false;
-	}
-
 
 
 	void SignatureArray::setSignatureBit(unsigned int signatureIndex, unsigned int bitIndex) {
@@ -210,7 +154,6 @@ namespace ECS {
 
 
 	unsigned int SignatureArray::add() {
-		// TODO: Invalidate caches
 		reserveSignatures(++numSignatures);
 
 		// Initialize new signature to 0
@@ -226,7 +169,6 @@ namespace ECS {
 
 
 	unsigned int SignatureArray::remove(unsigned int index) {
-		// TODO: Invalidate caches
 		if( index >= numSignatures )
 			throw new IndexOutOfBoundsException(index, numSignatures);
 
@@ -279,58 +221,3 @@ namespace ECS {
 	}
 
 }
-
-
-
-
-/*
-//TODO: REMOVE THIS
-
-	void SignatureArray::setSignatureSizeOld(unsigned int newSignatureSize) {
-		if( newSignatureSize == signatureSize )
-			return;
-
-		if( newSignatureSize < signatureSize )
-			throw new SignatureSizeReducedException(signatureSize, newSignatureSize);
-
-
-		// - - - - + + + + - - - - + + + + - - - -
-
-		// - - - - - + + + + + - - - - - + + + + + - - - - -
-
-		// TODO: This has not been tested yet
-
-		// Check if more parts are required (i.e. we go from 8 to 9 in size)
-		unsigned int newSignatureParts = 1 + (signatureSize - 1) / 8;
-		unsigned int partsDifference = newSignatureParts - signatureParts;
-		if( partsDifference > 0 ) {
-
-			// Create new data list, which has the adjusted number of parts
-			std::vector<unsigned char> newData;
-			newData.reserve(newSignatureParts * numSignatures);
-
-			auto currentDataIterator = signatureData.begin();
-			for( int i = 0; i < numSignatures; i++ ) {
-				// Copy existing data
-				for( int j = 0; j < signatureParts; j++ ) {
-					newData.push_back(*currentDataIterator);
-					currentDataIterator++;
-				}
-
-				// Push new (empty) parts
-				for( int j = 0; j < partsDifference; j++ ) {
-					newData.push_back(0);
-				}
-			}
-
-			signatureData = std::move(newData);
-			signatureParts = newSignatureParts;
-		}
-
-
-		signatureSize = newSignatureSize;
-
-		// TODO: Invalidate caches
-	}
-
-*/

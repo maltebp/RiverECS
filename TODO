@@ -11,10 +11,13 @@ General:
 
 
     ✔ ERROR: If a entities are queried with components, which hasn't been created yet, it crashes (just make sure component is added before creating search signature)
-    ☐ Cache signature queries (in SignatureArray)
-    ☐ Fix todo in SignatureArray::forMatchingSignatures
+    ✔ Cache signature queries (in SignatureArray)
+    ✔ Fix todo in SignatureArray::forMatchingSignatures
+    ✔ Clean up domain properly (i.e. destroy componentcontrollers))
+    ☐ Create large generel test
+    ☐ Document some more code, clean it up a bit and setup GitHub
+    ☐ Fix compile warnings
     ☐ Create pre-allocated array of entities instead of doing dynamic allocation each time
-    ☐ Clean up domain properly (i.e. destroy componentcontrollers))
     ☐ Allow user to set number of component types to preallocate
     ☐ Clean ComponentControllers frequently by sorting components according to entity id
     ☐ Change SignatureArray to handle larger bit indices (change unsigned int to size_t)
@@ -22,6 +25,7 @@ General:
     ☐ Reduce amount of mallocs associated with the SignatureArray class
     ☐ Reduce number of map-lookups in general (specifically: ComponentController (no need to have a ComponentId tbh))
     ☐ Setup some profiling system to check number of callocs / mallocs (I fear are is quite a few)
+    ☐ Improve performance of Signature comparison, by checking long/int/shorts instead chars when possible
     ☐ Adjustable Query Caching: Make it possible for user to somehow adjust which queries are cached
         Each query caches quite a bit of memory as it holds a vector of unsigned int to all Signature which matches the query,
         and currently ALL queries are cached

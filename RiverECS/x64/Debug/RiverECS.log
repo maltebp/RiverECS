@@ -1,13 +1,4 @@
 ﻿  Domain.cpp
 C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\ComponentTypeRegistry.h(36,1): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
-C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\Domain.cpp(31,82): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
-  Entity.cpp
-C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\ComponentTypeRegistry.h(36,1): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
-  SignatureArray.cpp
-C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\SignatureArray\SignatureArray.cpp(177,52): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
-C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\SignatureArray\SignatureArray.cpp(189,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\SignatureArray\SignatureArray.cpp(196,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\SignatureArray\SignatureArray.cpp(239,27): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\SignatureArray\SignatureArray.cpp(251,35): warning C4244: '+=': conversion from 'double' to 'unsigned int', possible loss of data
-  Generating Code...
+C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\Domain.cpp(38,82): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
   RiverECS.vcxproj -> C:\Users\Malte\Projects\RiverECS\RiverECS\bin\Debug-x64\RiverECS.lib
