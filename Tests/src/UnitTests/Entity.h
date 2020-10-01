@@ -1,18 +1,19 @@
 #pragma once
 
-
 #include <catch.h>
-
-#include "TestComponents.h"
-#include "Log.h"
 
 #include <ECS.h>
 #include <ECS/ComponentController.h>
 
+#include "TestComponents.h"
+#include "Log.h"
 
 
+
+
+//============================================================================================================================================================================================================
 TEST_CASE("Creating, getting, updating and removing Entity", "[entity]") {
-
+	/*	Basic component functionality */
 
 	ECS::Domain domain;
 	ECS::Entity* entity;
@@ -62,8 +63,9 @@ TEST_CASE("Creating, getting, updating and removing Entity", "[entity]") {
 
 
 
+// ==============================================================================================================================================================================================
 TEST_CASE("Multiple components", "[entity]") {
-
+	/*	Checking that an Entity can have multiple components */
 
 	ECS::Domain domain;
 	ECS::Entity* entity;
@@ -146,13 +148,13 @@ TEST_CASE("Multiple components", "[entity]") {
 
 
 
-
-
-
-
-
+// ==============================================================================================================================================================================================
 TEST_CASE("Signature search", "[entity]") {
+	/*	Checking that quering entities based on a series of
+		components works
+	*/
 	
+
 	ECS::Domain domain;
 	ECS::Entity* entity;
 
@@ -222,8 +224,7 @@ TEST_CASE("Signature search", "[entity]") {
 
 
 
-
-
+// ==============================================================================================================================================================================================
 TEST_CASE("Same Cycle Create and Destroy", "[entity]") {
 	/*	Checking that Entities and Components are handled correctly
 		if they both are destroyed in the same Domain cycle (before
