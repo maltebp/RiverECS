@@ -1,4 +1,7 @@
 ﻿  Domain.cpp
 C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\ComponentTypeRegistry.h(36,1): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
 C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\Domain.cpp(29,82): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  Entity.cpp
+C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\ComponentTypeRegistry.h(36,1): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+  Generating Code...
   RiverECS.vcxproj -> C:\Users\Malte\Projects\RiverECS\RiverECS\bin\Debug-x64\RiverECS.lib

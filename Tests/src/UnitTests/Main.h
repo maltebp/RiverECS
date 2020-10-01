@@ -49,7 +49,7 @@ int start(int argc, char* argv[]) {
 	
 
 	// Add test arguments here (i.e. tag on test cases to run)
-	args.push_back("[entity]");
+	//args.push_back("[entity]");
 	//args.push_back("-b"); // Break when assertion failed
 
 

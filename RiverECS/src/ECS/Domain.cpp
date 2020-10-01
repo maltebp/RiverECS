@@ -9,7 +9,9 @@ namespace ECS {
 	/**
 	 * @brief 
 	*/
-	Domain::Domain() : signatures(5000) {}
+	Domain::Domain() : signatures(5000) {
+	
+	}
 	Domain::~Domain(){}
 
 
@@ -83,7 +85,11 @@ namespace ECS {
 			componentController.second->clean();
 		}
 
-		// TODO: Clear lists!!!! VERY IMPORTANT
+
+		entityComponentsToCreate.clear();
+		entityComponentsToDelete.clear();
+		entitiesToDelete.clear();
+		newEntities.clear();
 	}
 
 

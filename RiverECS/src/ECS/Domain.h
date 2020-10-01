@@ -116,19 +116,29 @@ namespace ECS {
 			if( controllerIterator != componentControllers.end() )
 				return (ComponentController<C>*) controllerIterator->second;
 
+			// Component Type isn't registered yet, so it's registered and then returned
 			auto emplaceResult = componentControllers.emplace(componentTypeId, new ComponentController<C>());
 			return (ComponentController<C>*) emplaceResult.first->second;
 		}
 
 
-		template <typename CLast>
+		template <typename C>
 		void addComponentTypeToSignature(Signature& signature) {
-			signature.set(ComponentTypeRegistry::getTypeId<CLast>());
+			RV_ECS_ASSERT_COMPONENT_TYPE(C);
+
+			// The given Component type may not have been registered in the system yet
+			// so this is basically to check that, and resize the Signature in
+			// case the Component is new.
+			auto typeId = ComponentTypeRegistry::getTypeId<C>();
+			if( signature.getSize() <= typeId )
+				signature.resize(typeId+1);
+
+			signature.set(ComponentTypeRegistry::getTypeId<C>());
 		}
 
 		template <typename CFirst, typename CSecond, typename ... CRest>
 		void addComponentTypeToSignature(Signature& signature) {
-			signature.set(ComponentTypeRegistry::getTypeId<CFirst>());
+			addComponentTypeToSignature<CFirst>(signature);
 			addComponentTypeToSignature<CSecond, CRest...>(signature);
 		}
 

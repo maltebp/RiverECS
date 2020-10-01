@@ -149,7 +149,7 @@ TEST_CASE("Multiple components", "[entity]") {
 
 
 // ==============================================================================================================================================================================================
-TEST_CASE("Signature search", "[entity]") {
+TEST_CASE("General Signature search", "[entity]") {
 	/*	Checking that quering entities based on a series of
 		components works
 	*/
@@ -221,6 +221,50 @@ TEST_CASE("Signature search", "[entity]") {
 		});
 	REQUIRE(entityCount == 6);
 }
+
+
+
+
+// ==============================================================================================================================================================================================
+TEST_CASE("Non-existing Component signature search", "[entity]") {
+	/*	Querying entities with components that no entity has yet.
+		This would means that the type probably hasn't been
+		registered in the system as a Component yet.
+	*/
+
+
+	ECS::Domain domain;
+	ECS::Entity* entity;
+
+	entity = domain.createEntity();
+	entity->addComponent<ComponentA>();
+	entity->addComponent<ComponentB>();
+	entity->addComponent<ComponentC>();
+
+	domain.clean();
+
+	int entityCount;
+
+
+	entityCount = 0;
+	domain.forEachEntity<ComponentD>([&entityCount](auto entity, auto a) {
+		entityCount++;
+		});
+	REQUIRE(entityCount == 0);
+
+	entityCount = 0;
+	domain.forEachEntity<ComponentE, ComponentF>([&entityCount](auto entity, auto e, auto f) {
+		entityCount++;
+		});
+	REQUIRE(entityCount == 0);
+
+	entityCount = 0;
+	domain.forEachEntity<ComponentA, ComponentG>([&entityCount](auto entity, auto c, auto g) {
+		entityCount++;
+		});
+	REQUIRE(entityCount == 0);
+}
+
 
 
 
