@@ -14,6 +14,10 @@ namespace ECS {
 
 	Signature& Signature::operator=(const Signature& other)	{
 		free(bits);
+		firstBit = other.firstBit;
+		lastBit = other.lastBit;
+		bitsSet = other.bitsSet;
+		dirty = other.dirty;
 		size = other.size;
 		parts = other.parts;
 		bits = (unsigned char*)calloc(parts, 1);
@@ -26,6 +30,11 @@ namespace ECS {
 	Signature::Signature(const Signature& other) :
 		BitManipulator((unsigned char*) calloc(other.parts, 1), other.size)
 	{
+		firstBit = other.firstBit;
+		lastBit = other.lastBit;
+		bitsSet = other.bitsSet;
+		dirty = other.dirty;
+
 		for( unsigned int i = 0; i < parts; i++ )
 			bits[i] = other.bits[i];
 	}

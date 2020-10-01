@@ -14,10 +14,12 @@ namespace ECS {
 		reserveMemory(memoryStepSize);
 	}
 
+
 	SignatureArray::~SignatureArray() {
 		if( data != nullptr )
 			free(data);
 	}
+
 
 	/**
 		* @brief Removes all signatures from the array
@@ -30,41 +32,101 @@ namespace ECS {
 		free(data);
 		data = nullptr;
 		numSignatures = 0;
+		memorySize = 0;
 	}
 
 
-	/**
-		* @brief Checks if each signature in the array matches the given signature, and call the callback function in case it does
-		* @param signature
-		* @param callback
-	*/
+	
 	void SignatureArray::forMatchingSignatures(Signature& signature, std::function<void(unsigned int signatureIndex)> callback) {
 
-		/*	There is no reason to check parts if they are all 0's, so we skip ahead */
+		/*	There is no reason to check parts if they are all 0's, so we skip ahead and cut off the end */
 		unsigned int firstPartIndex = signature.getFirstSetBit() < 0 ? 0 : signature.getFirstSetBit() / 8;
 		unsigned int lastPartIndex = signature.getLastSetBit() < 0 ? 0 : signature.getLastSetBit() / 8;
 
 		if( (signatureParts - 1) < lastPartIndex )
 			return;// TODO: Throw exception: they don't match
 
+		// First check if the query has been cached
+		bool wasCached = checkCachedQuery(signature, callback);
+		if( wasCached ) return;
+
+		// Setup cache
+		cachedQueries.emplace_back(std::make_pair(signature, std::vector<unsigned int>()));
+		auto& cachedSignatureIndices = cachedQueries.back().second;
+
+		// The queried signature's data
 		unsigned char* signatureBits = signature.getBits();
 
+		// For each stored signature in array
 		for( unsigned int signatureIndex = 0; signatureIndex < numSignatures; signatureIndex++ ) {
 			bool match = true;
 
+			// For each part in the signature to check for match
 			for( unsigned int partIndex = firstPartIndex; partIndex < lastPartIndex + 1; partIndex++ ) {
-				unsigned matchingSignature = data[signatureIndex * signatureParts + partIndex];
-				if( (matchingSignature & signatureBits[partIndex]) != signatureBits[partIndex] ) {
+				unsigned matchingPart = data[signatureIndex * signatureParts + partIndex];
+
+				// Check if the bits set in the queried signature are also set in the matching
+				// parth, using the bitwise &.
+				// Note: It doesn't have to be an exact match; the matching part may container
+				// other set bits, but these are ignored
+				if( (matchingPart & signatureBits[partIndex]) != signatureBits[partIndex] ) {
 					match = false;
 					break;
 				}
-
 			}
-			if( match )
-				callback(signatureIndex);
+
+			if( match ) cachedSignatureIndices.push_back(signatureIndex);
 		}
 
+		// Run the callback for all the signature indices we just found (and
+		// stored in cachedSignatureIndices
+		for( auto signatureIndex : cachedSignatureIndices ) callback(signatureIndex);
 	}
+
+
+
+	bool SignatureArray::checkCachedQuery(Signature& signature, std::function<void(unsigned int signatureIndex)> callback) {
+		int firstBit = signature.getFirstSetBit();
+		int lastBit = signature.getLastSetBit();
+		int numSetBits = signature.getBitsSet();
+		unsigned int firstPartIndex = firstBit < 0 ? 0 : firstBit / 8;
+		unsigned int lastPartIndex = lastBit < 0 ? 0 : lastBit / 8;
+
+		unsigned char* signatureBits = signature.getBits();
+
+		// For each cached query
+		for( auto cachedQuery : cachedQueries ) {
+			auto& cachedSignature = cachedQuery.first;
+
+			// The signature can't match if either of these are not true, so we can just continue
+			if( firstBit	!= cachedSignature.getFirstSetBit() ||
+				lastBit		!= cachedSignature.getLastSetBit()	||
+				numSetBits	!= cachedSignature.getBitsSet()
+			) continue;
+			
+			// For each part in the signature to check for match
+			auto cachedSignatureBits = cachedSignature.getBits();
+			bool match = true;
+			for( unsigned int partIndex = firstPartIndex; partIndex < lastPartIndex + 1; partIndex++ ) {
+				// The Signatures has to exact matches, so each part must have the same value
+				if( cachedSignatureBits[partIndex] != signatureBits[partIndex] ) {
+					match = false;
+					break;
+				}
+			}
+
+			if( match ) {
+				// Run callback for each signature index cached for the
+				// matching Signature query
+				for( auto signatureIndex : cachedQuery.second ) {
+					callback(signatureIndex);
+				}
+				return true;
+			}
+		}
+		return false;
+	}
+
 
 
 	void SignatureArray::setSignatureBit(unsigned int signatureIndex, unsigned int bitIndex) {
@@ -95,6 +157,7 @@ namespace ECS {
 
 		return bitManipulator.get(signatureIndex*signatureParts*8 + bitIndex);
 	}
+
 
 
 	void SignatureArray::setSignatureSize(unsigned int newSignatureSize) {
@@ -142,10 +205,7 @@ namespace ECS {
 
 		signatureSize = newSignatureSize;
 		bitManipulator.setData(data, numSignatures * signatureParts * 8);
-
-		// TODO: Invalidate caches
 	}
-
 
 
 
@@ -162,6 +222,7 @@ namespace ECS {
 
 		return signatureIndex;
 	}
+
 
 
 	unsigned int SignatureArray::remove(unsigned int index) {

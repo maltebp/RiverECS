@@ -12,15 +12,48 @@ General:
 
     ✔ ERROR: If a entities are queried with components, which hasn't been created yet, it crashes (just make sure component is added before creating search signature)
     ☐ Cache signature queries (in SignatureArray)
+    ☐ Fix todo in SignatureArray::forMatchingSignatures
     ☐ Create pre-allocated array of entities instead of doing dynamic allocation each time
     ☐ Clean up domain properly (i.e. destroy componentcontrollers))
     ☐ Allow user to set number of component types to preallocate
     ☐ Clean ComponentControllers frequently by sorting components according to entity id
     ☐ Change SignatureArray to handle larger bit indices (change unsigned int to size_t)
     ☐ Create a config file/class to allow user to make changes to how the system is configured (perhaps consider a per Domain configuration?)
-
+    ☐ Reduce amount of mallocs associated with the SignatureArray class
+    ☐ Reduce number of map-lookups in general (specifically: ComponentController (no need to have a ComponentId tbh))
+    ☐ Setup some profiling system to check number of callocs / mallocs (I fear are is quite a few)
+    ☐ Adjustable Query Caching: Make it possible for user to somehow adjust which queries are cached
+        Each query caches quite a bit of memory as it holds a vector of unsigned int to all Signature which matches the query,
+        and currently ALL queries are cached
 
     Tests:
         ✔ Create and destroy entity in same cycle
         ✔ Test resizing of signatures
         ✔ Query entities with components, which no entity has yet
+
+
+
+    Query Caching 2.0:
+        Storage of queries
+        Signatures are stored in a signature array. So a query get an index.
+
+        The signature indicies matching that particular query are stored as a BitSet, where there is a bit for each entity. Checking for
+        each bit will be a bit slower, but removing and adding signatures will be constant time. This could of course also be gained from
+        having Linked List, but all know that it too slow when iterating).
+        Note: This can pay off memorywise as long as each query queries holds at least 3.125% of all signatures
+            (If the Domain has 10000 signatures (or entities) and each query in average contains 5% of all signatures, then with a vector of
+            signature indicies will take up 10000*0.05*32 = 16000 bits, and a bitset containing a bit for each entity will take up 10000 bits.
+            This is without included optimization such as shortening the bitset if the last signature in the index is less than the total number
+            of signatures [no reason to have a larger set than 9000 if the last signature index in the set is 9000];
+
+        
+        
+
+
+        ☐ Resize: doesn't change indices, so doesn't change cache
+        ☐ Unset signature bit: Remove signature from queries, containing that bit
+        ☐ Set signature bit: Add signature to queries containing that bit if the new signature matches
+        ☐ Add new signature: Doesn't change anything
+        ☐ Remove signature: Remove index from queries containing that index, and change update 
+        ☐ Clear (just clear the cache)
+        ☐ 

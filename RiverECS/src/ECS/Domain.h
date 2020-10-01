@@ -159,7 +159,7 @@ namespace ECS {
 
 		/**
 		 * @brief Maps an signature index to an entiy */
-		std::unordered_map<unsigned int, Entity*> signatureIndexEntityMap;
+		std::unordered_map<unsigned int, Entity*> signatureIndexEntityMap; // TODO: use vector instead
 
 
 		std::unordered_map<Entity*, std::vector<ComponentTypeId>> entityComponentsToCreate;

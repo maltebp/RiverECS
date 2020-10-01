@@ -8,6 +8,8 @@ DESIGN CHOICES
     - Destroyed entities and components will be valid throughout the current cycle, EVEN if they were created in that cycle 
 
 
+    - Signature Query Caching:
+        Removing an entity will invalidate all caches. This is quite a heavy toll?
 
 
 

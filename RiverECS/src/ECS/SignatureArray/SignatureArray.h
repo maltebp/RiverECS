@@ -98,9 +98,21 @@ namespace ECS {
 		unsigned int getMemorySize();
 
 
+
 	private:
 		SignatureArray& operator=(SignatureArray& other) = delete;
 		SignatureArray(const SignatureArray& other) = delete;
+
+
+		/**
+		 * @brief	Checks if the Signature query has been cached, and if it has, it runs the callback
+					for each signature index in the cached query result
+
+		 * @param signature		Signature to check for cache
+		 * @param callback		Callback to run
+		 * @return	True if a cached query was found and run, otherwise false
+		*/
+		bool checkCachedQuery(Signature& signature, std::function<void(unsigned int signatureIndex)> callback);
 
 
 
@@ -120,7 +132,7 @@ namespace ECS {
 		unsigned char* data = nullptr;
 
 		// Maps signature to index to Entity
-		std::unordered_map<unsigned int, ECS::Entity*> entityMap;
+		std::unordered_map<unsigned int, ECS::Entity*> entityMap; // TODO: Change to vector (faster lookup)
 
 		// Maps Entity to signature index
 		std::unordered_map<ECS::Entity*, unsigned int> indexMap;
@@ -128,6 +140,9 @@ namespace ECS {
 
 		BitManipulator bitManipulator = BitManipulator(nullptr, 0);
 
+
+		
+		std::vector<std::pair<Signature, std::vector<unsigned int>>> cachedQueries;
 		
 
 	public:
