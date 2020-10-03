@@ -1,2 +1,0 @@
-C:\Users\Malte\Projects\RiverECS\RiverECS\bin\Debug-x64\RiverECS.pdb
-C:\Users\Malte\Projects\RiverECS\RiverECS\x64\Debug\RiverECS.pdb

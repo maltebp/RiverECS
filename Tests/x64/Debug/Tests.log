@@ -1,10 +1,10 @@
 ﻿  Main.cpp
-C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\ComponentTypeRegistry.h(36,1): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\Malte\Projects\RiverECS\build\include\ECS\ComponentTypeRegistry.h(36,1): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
 C:\Users\Malte\Projects\RiverECS\Tests\src\UnitTests\General.h(239,21): warning C4018: '<': signed/unsigned mismatch
 C:\Users\Malte\Projects\RiverECS\Tests\src\UnitTests\General.h(266,1): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
 C:\Users\Malte\Projects\RiverECS\Tests\src\UnitTests\Main.h(58,59): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\Domain.h(133,28): warning C4018: '<=': signed/unsigned mismatch
-C:\Users\Malte\Projects\RiverECS\RiverECS\src\ECS\Domain.h(69): message : see reference to function template instantiation 'void ECS::Domain::addComponentTypeToSignature<ComponentB>(ECS::Signature &)' being compiled
+C:\Users\Malte\Projects\RiverECS\build\include\ECS\Domain.h(133,28): warning C4018: '<=': signed/unsigned mismatch
+C:\Users\Malte\Projects\RiverECS\build\include\ECS\Domain.h(69): message : see reference to function template instantiation 'void ECS::Domain::addComponentTypeToSignature<ComponentB>(ECS::Signature &)' being compiled
 C:\Users\Malte\Projects\RiverECS\Tests\src\UnitTests\General.h(173): message : see reference to function template instantiation 'void ECS::Domain::forEachEntity<ComponentB,Query<ComponentB>::run::<lambda_ef6c3e230f77f12349cfb7ac685b6509>>(Func)' being compiled
           with
           [
