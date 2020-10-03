@@ -8,11 +8,12 @@
 
 
 // Test case files -------------------------------------
-#include "ComponentController.h"
-#include "Signature/BitManipulator.h"
-#include "Signature/Signature.h"
-#include "Signature/SignatureArray.h"
-#include "Entity.h"
+//#include "Signature/BitManipulator.h"
+//#include "Signature/Signature.h"
+//#include "Signature/SignatureArray.h"
+//#include "ComponentController.h"
+//#include "Entity.h"
+#include "General.h"
 // -----------------------------------------------------
 
 
