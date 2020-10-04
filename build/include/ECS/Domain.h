@@ -13,7 +13,7 @@
 #include "SignatureArray/SignatureArray.h"
 
 
-namespace ECS {
+namespace River::ECS {
 
 	struct Entity;
 

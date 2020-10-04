@@ -2,7 +2,7 @@
 
 #include "Domain.h"
 
-namespace ECS {
+namespace River::ECS {
 
 	struct Entity {
 	public:

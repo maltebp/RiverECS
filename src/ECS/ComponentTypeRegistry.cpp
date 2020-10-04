@@ -1,7 +1,7 @@
 
 #include "ComponentTypeRegistry.h"
 
-namespace ECS {
+namespace River::ECS {
 
 	ComponentTypeId ComponentTypeRegistry::numTypes = 0;
 

@@ -3,7 +3,7 @@
 #include <string>
 
 
-namespace ECS {
+namespace River::ECS {
 
 	
 	// Represents a component

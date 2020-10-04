@@ -2,7 +2,7 @@
 
 #include "Domain.h"
 
-namespace ECS {
+namespace River::ECS {
 
 	struct Entity {
 	public:
@@ -28,7 +28,10 @@ namespace ECS {
 			domain.removeEntityComponent<C>(this);
 		}
 
-		//void destroy();
+		
+		void destroy() {
+			domain.destroyEntity(this);
+		}
 
 
 

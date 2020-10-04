@@ -3,7 +3,7 @@
 #include "BitManipulator.h"
 
 
-namespace ECS {
+namespace River::ECS {
 
 
 	class SignatureSizeReducedException : public Exception {

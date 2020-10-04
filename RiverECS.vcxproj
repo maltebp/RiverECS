@@ -45,12 +45,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(ProjectDir)build\bin\$(Configuration)-$(Platform)\</OutDir>
+    <OutDir>$(ProjectDir)build\lib\$(Configuration)-$(Platform)\</OutDir>
     <IntDir>$(ProjectDir)build\obj\$(Configuration)-$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(ProjectDir)build\bin\$(Configuration)-$(Platform)\</OutDir>
+    <OutDir>$(ProjectDir)build\lib\$(Configuration)-$(Platform)\</OutDir>
     <IntDir>$(ProjectDir)build\obj\$(Configuration)-$(Platform)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

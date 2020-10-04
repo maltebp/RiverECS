@@ -46,7 +46,7 @@ void run() {
 	domain.clean();
 
 
-	domain.forEachEntity<TestComponent, TestComponent2>([](ECS::Entity* e, TestComponent* c, TestComponent2* c2) {
+	domain.forMatchingEntities<TestComponent, TestComponent2>([](ECS::Entity* e, TestComponent* c, TestComponent2* c2) {
 		LOG(c->value);
 		LOG(c2->value);
 	});

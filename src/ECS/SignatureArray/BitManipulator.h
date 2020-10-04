@@ -5,7 +5,7 @@
 
 #include "ECS/Exception.h"
 
-namespace ECS {
+namespace River::ECS {
 
 	/**
 	 * @brief	Wrapper class for setting and unsetting bits in an array of unsigned characters

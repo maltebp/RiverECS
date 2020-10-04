@@ -12,7 +12,7 @@
 
 
 
-namespace ECS {
+namespace River::ECS {
 	struct Entity;
 
 	// Thrown if an Entity already has a component

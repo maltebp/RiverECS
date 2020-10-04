@@ -4,7 +4,7 @@
 
 #include "ECS/Log.h"
 
-namespace ECS {
+namespace River::ECS {
 
 	/**
 	 * @brief 

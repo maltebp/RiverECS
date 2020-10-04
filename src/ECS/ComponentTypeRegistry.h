@@ -6,7 +6,7 @@
 #include "Component.h"
 
 
-namespace ECS {
+namespace River::ECS {
 	class ComponentTypeRegistry {
 	public:
 

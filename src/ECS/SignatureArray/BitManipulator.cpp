@@ -1,7 +1,7 @@
 #include "BitManipulator.h"
 
 
-namespace ECS {
+namespace River::ECS {
 
 	BitManipulator::BitManipulator(unsigned char* data, unsigned int numBits) {
 		setData(data, numBits);

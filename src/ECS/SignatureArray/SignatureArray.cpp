@@ -7,7 +7,7 @@
 #include "SignatureArray.h"
 
 
-namespace ECS {
+namespace River::ECS {
 
 
 	SignatureArray::SignatureArray(unsigned int memoryStepSize) : memoryStepSize(memoryStepSize) {

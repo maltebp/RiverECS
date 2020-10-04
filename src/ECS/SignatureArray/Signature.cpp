@@ -1,6 +1,6 @@
 #include "Signature.h"
 
-namespace ECS {
+namespace River::ECS {
 
 
 	Signature::Signature(unsigned int size) :

@@ -197,26 +197,26 @@ TEST_CASE("General Signature search", "[entity]") {
 	
 	
 	entityCount = 0;
-	domain.forEachEntity<ComponentA, ComponentB>([&entityCount](auto entity, auto a, auto b) {
+	domain.forMatchingEntities<ComponentA, ComponentB>([&entityCount](auto entity, auto a, auto b) {
 		entityCount++;
 	});
 	REQUIRE(entityCount == 5);
 
 	entityCount = 0;
-	domain.forEachEntity<ComponentC>([&entityCount](auto entity, auto c) {
+	domain.forMatchingEntities<ComponentC>([&entityCount](auto entity, auto c) {
 		entityCount++;
 		});
 	REQUIRE(entityCount == 3);
 
 
 	entityCount = 0;
-	domain.forEachEntity<ComponentC, ComponentF>([&entityCount](auto entity, auto c, auto f) {
+	domain.forMatchingEntities<ComponentC, ComponentF>([&entityCount](auto entity, auto c, auto f) {
 		entityCount++;
 		});
 	REQUIRE(entityCount == 1);
 
 	entityCount = 0;
-	domain.forEachEntity<ComponentA>([&entityCount](auto entity, auto a) {
+	domain.forMatchingEntities<ComponentA>([&entityCount](auto entity, auto a) {
 		entityCount++;
 		});
 	REQUIRE(entityCount == 6);
@@ -247,19 +247,19 @@ TEST_CASE("Non-existing Component signature search", "[entity]") {
 
 
 	entityCount = 0;
-	domain.forEachEntity<ComponentD>([&entityCount](auto entity, auto a) {
+	domain.forMatchingEntities<ComponentD>([&entityCount](auto entity, auto a) {
 		entityCount++;
 		});
 	REQUIRE(entityCount == 0);
 
 	entityCount = 0;
-	domain.forEachEntity<ComponentE, ComponentF>([&entityCount](auto entity, auto e, auto f) {
+	domain.forMatchingEntities<ComponentE, ComponentF>([&entityCount](auto entity, auto e, auto f) {
 		entityCount++;
 		});
 	REQUIRE(entityCount == 0);
 
 	entityCount = 0;
-	domain.forEachEntity<ComponentA, ComponentG>([&entityCount](auto entity, auto c, auto g) {
+	domain.forMatchingEntities<ComponentA, ComponentG>([&entityCount](auto entity, auto c, auto g) {
 		entityCount++;
 		});
 	REQUIRE(entityCount == 0);
@@ -290,7 +290,7 @@ TEST_CASE("Same Cycle Create and Destroy", "[entity]") {
 
 	int entityCount;
 	entityCount = 0;
-	domain.forEachEntity<ComponentA>([&entityCount](auto entity, auto a) {
+	domain.forMatchingEntities<ComponentA>([&entityCount](auto entity, auto a) {
 		entityCount++;
 		});
 	REQUIRE(entityCount == 2);
@@ -318,7 +318,7 @@ TEST_CASE("Same Cycle Create and Destroy", "[entity]") {
 		REQUIRE(domain.getEntityComponent<ComponentD>(entity3) == nullptr);
 
 		entityCount = 0;
-		domain.forEachEntity<ComponentD>([&entityCount](auto entity, auto a) {
+		domain.forMatchingEntities<ComponentD>([&entityCount](auto entity, auto a) {
 			entityCount++;
 		});
 		REQUIRE(entityCount == 0);
@@ -340,7 +340,7 @@ TEST_CASE("Same Cycle Create and Destroy", "[entity]") {
 		REQUIRE(domain.getEntityComponent<ComponentD>(entity2) == nullptr);
 
 		entityCount = 0;
-		domain.forEachEntity<ComponentD>([&entityCount](auto entity, auto a) {
+		domain.forMatchingEntities<ComponentD>([&entityCount](auto entity, auto a) {
 			entityCount++;
 			});
 		REQUIRE(entityCount == 0);
@@ -371,7 +371,7 @@ TEST_CASE("Same Cycle Create and Destroy", "[entity]") {
 		REQUIRE(domain.getEntityComponent<ComponentD>(entity3) == nullptr);
 
 		entityCount = 0;
-		domain.forEachEntity<ComponentD>([&entityCount](auto entity, auto a) {
+		domain.forMatchingEntities<ComponentD>([&entityCount](auto entity, auto a) {
 			entityCount++;
 			});
 		REQUIRE(entityCount == 0);

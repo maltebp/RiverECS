@@ -172,7 +172,7 @@ struct Query : IQuery {
 
 	unsigned int run(ECS::Domain& domain) override {
 		int count = 0;
-		domain.forEachEntity<Components... >([&](auto entity, auto... components) {
+		domain.forMatchingEntities<Components... >([&](auto entity, auto... components) {
 			count++;
 		});
 		return count;
@@ -375,7 +375,7 @@ TEST_CASE("General Test", "[general]") {
 	//std::vector<Query*> queries;
 
 	/*std::function<void(ECS::Domain& domain)> callback = [](ECS::Domain& domain) {
-		domain.forEachEntity<ComponentA, ComponentB, ComponentC>() {
+		domain.forMatchingEntities<ComponentA, ComponentB, ComponentC>() {
 
 		}
 	};*/
