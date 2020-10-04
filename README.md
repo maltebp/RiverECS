@@ -25,9 +25,11 @@ domain.clean();
 domain.forMatchingEntities<ComponentA>(
     [](Entity* e, ComponentA* a){
         std::cout << "someValue = " << a->someValue << std::endl;
-        // Out: someValue = 10;
     }
 );
+
+Output:
+someValue = 10;
 ```
 
 ### Coming features?
