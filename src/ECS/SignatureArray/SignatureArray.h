@@ -126,16 +126,16 @@ namespace River::ECS {
 
 		unsigned int numSignatures = 0;
 
-		unsigned int signatureSize = 1;
+		unsigned int signatureSize = 1; // TODO: Fix this
 		unsigned int signatureParts = 1; // Number of unsigned chars to represent elements (always elementSize ceil(elementSize/sizeof(unsigned char))
 
 		unsigned char* data = nullptr;
 
 		// Maps signature to index to Entity
-		std::unordered_map<unsigned int, ECS::Entity*> entityMap; // TODO: Change to vector (faster lookup)
+		std::unordered_map<unsigned int, River::ECS::Entity*> entityMap; // TODO: Change to vector (faster lookup)
 
 		// Maps Entity to signature index
-		std::unordered_map<ECS::Entity*, unsigned int> indexMap;
+		std::unordered_map<River::ECS::Entity*, unsigned int> indexMap;
 
 
 		BitManipulator bitManipulator = BitManipulator(nullptr, 0);

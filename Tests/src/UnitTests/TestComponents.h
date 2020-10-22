@@ -5,68 +5,68 @@
 
 
 
-struct ComponentA : public ECS::Component {
+struct ComponentA : public River::ECS::Component {
 	int a = 10;
 	int b = 15;
 };
 
-struct ComponentB : public ECS::Component {
+struct ComponentB : public River::ECS::Component {
 	int a, b;
 	std::string c;
 	double d;
 	void* ptr;
 };
 
-struct ComponentC : public ECS::Component {
+struct ComponentC : public River::ECS::Component {
 	int a, b;
 	std::string c;
 	double d;
 	void* ptr;
 };
 
-struct ComponentD : public ECS::Component {
+struct ComponentD : public River::ECS::Component {
 	int a, b;
 	std::string c;
 	double d;
 	void* ptr;
 };
 
-struct ComponentE : public ECS::Component {
+struct ComponentE : public River::ECS::Component {
 	int a, b;
 	std::string c;
 	double d;
 	void* ptr;
 };
 
-struct ComponentF : public ECS::Component {
+struct ComponentF : public River::ECS::Component {
 	int a, b;
 	std::string c;
 	double d;
 	void* ptr;
 };
 
-struct ComponentG : public ECS::Component {
+struct ComponentG : public River::ECS::Component {
 	int a, b;
 	std::string c;
 	double d;
 	void* ptr;
 };
 
-struct ComponentH : public ECS::Component {
+struct ComponentH : public River::ECS::Component {
 	int a, b;
 	std::string c;
 	double d;
 	void* ptr;
 };
 
-struct ComponentL : public ECS::Component {
+struct ComponentL : public River::ECS::Component {
 	int a, b;
 	std::string c;
 	double d;
 	void* ptr;
 };
 
-struct ComponentM : public ECS::Component {
+struct ComponentM : public River::ECS::Component {
 	int a, b;
 	std::string c;
 	double d;

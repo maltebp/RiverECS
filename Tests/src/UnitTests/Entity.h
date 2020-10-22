@@ -15,8 +15,8 @@
 TEST_CASE("Creating, getting, updating and removing Entity", "[entity]") {
 	/*	Basic component functionality */
 
-	ECS::Domain domain;
-	ECS::Entity* entity;
+	River::ECS::Domain domain;
+	River::ECS::Entity* entity;
 	ComponentA* comp;
 	
 	entity = domain.createEntity();
@@ -67,8 +67,8 @@ TEST_CASE("Creating, getting, updating and removing Entity", "[entity]") {
 TEST_CASE("Multiple components", "[entity]") {
 	/*	Checking that an Entity can have multiple components */
 
-	ECS::Domain domain;
-	ECS::Entity* entity;
+	River::ECS::Domain domain;
+	River::ECS::Entity* entity;
 
 
 	entity = domain.createEntity();
@@ -155,8 +155,8 @@ TEST_CASE("General Signature search", "[entity]") {
 	*/
 	
 
-	ECS::Domain domain;
-	ECS::Entity* entity;
+	River::ECS::Domain domain;
+	River::ECS::Entity* entity;
 
 	entity = domain.createEntity();
 	entity->addComponent<ComponentA>();
@@ -233,8 +233,8 @@ TEST_CASE("Non-existing Component signature search", "[entity]") {
 	*/
 
 
-	ECS::Domain domain;
-	ECS::Entity* entity;
+	River::ECS::Domain domain;
+	River::ECS::Entity* entity;
 
 	entity = domain.createEntity();
 	entity->addComponent<ComponentA>();
@@ -275,7 +275,7 @@ TEST_CASE("Same Cycle Create and Destroy", "[entity]") {
 		cleaning).
 	*/
 
-	ECS::Domain domain;
+	River::ECS::Domain domain;
 
 	// Pre-filling domain with a few entities
 	auto entity1 = domain.createEntity();

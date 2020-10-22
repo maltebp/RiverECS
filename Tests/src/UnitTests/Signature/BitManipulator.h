@@ -1,6 +1,7 @@
 #pragma once
 
 #include <catch.h>
+#include <unordered_set>
 
 #include <ECS/SignatureArray/BitManipulator.h>
 
@@ -16,7 +17,7 @@ TEST_CASE("Generel tests", "[bit_manipulator]") {
 	unsigned int bytes = 5;
 	unsigned int bits = bytes * 8;
 	unsigned char* data = new unsigned char[bytes]();
-	ECS::BitManipulator manipulator(data, bits);
+	River::ECS::BitManipulator manipulator(data, bits);
 
 	SECTION("Set and unset each individual bit") {
 		for( int i = 0; i < bits; i++ ) {

@@ -13,8 +13,8 @@
 
 
 //struct Entity {
-//	ECS::Entity* ptr;
-//	Entity(ECS::Domain& domain) {
+//	River::ECS::Entity* ptr;
+//	Entity(River::ECS::Domain& domain) {
 //		ptr = domain.createEntity();
 //	}
 //
@@ -29,7 +29,7 @@
 //
 //
 //	template <typename T>
-//	void createEntity(ECS::Domain& domain) {
+//	void createEntity(River::ECS::Domain& domain) {
 //		Entity* entity = new T(domain);
 //		allEntities.insert(entity);
 //		entityLists[entity->getType()].insert(entity);
@@ -57,7 +57,7 @@
 //
 //
 //struct Entity1 : public Entity {
-//	Entity1(ECS::Domain& domain) : Entity(domain) {
+//	Entity1(River::ECS::Domain& domain) : Entity(domain) {
 //		ptr->addComponent<ComponentA>();
 //		ptr->addComponent<ComponentB>();
 //		ptr->addComponent<ComponentC>();
@@ -71,7 +71,7 @@
 //
 //
 //struct Entity2 : public Entity {
-//	Entity2(ECS::Domain& domain) : Entity(domain) {
+//	Entity2(River::ECS::Domain& domain) : Entity(domain) {
 //		ptr->addComponent<ComponentA>();
 //		ptr->addComponent<ComponentB>();
 //		ptr->addComponent<ComponentC>();
@@ -85,7 +85,7 @@
 //
 //
 //struct Entity3 : public Entity {
-//	Entity3(ECS::Domain& domain) : Entity(domain) {
+//	Entity3(River::ECS::Domain& domain) : Entity(domain) {
 //		ptr->addComponent<ComponentA>();
 //		ptr->addComponent<ComponentB>();
 //		ptr->addComponent<ComponentC>();
@@ -99,7 +99,7 @@
 //
 //
 //struct Entity4 : public Entity {
-//	Entity4(ECS::Domain& domain) : Entity(domain) {
+//	Entity4(River::ECS::Domain& domain) : Entity(domain) {
 //		ptr->addComponent<ComponentA>();
 //		ptr->addComponent<ComponentB>();
 //		ptr->addComponent<ComponentC>();
@@ -113,7 +113,7 @@
 //
 //
 //struct Entity5 : public Entity {
-//	Entity5(ECS::Domain& domain) : Entity(domain) {
+//	Entity5(River::ECS::Domain& domain) : Entity(domain) {
 //		ptr->addComponent<ComponentA>();
 //		ptr->addComponent<ComponentB>();
 //		ptr->addComponent<ComponentC>();
@@ -141,18 +141,18 @@ std::vector<std::string> getTypeIds() {
 
 
 struct IComponentType {
-	virtual void addToEntity(ECS::Entity*) = 0;
-	virtual void removeFromEntity(ECS::Entity*) = 0;
+	virtual void addToEntity(River::ECS::Entity*) = 0;
+	virtual void removeFromEntity(River::ECS::Entity*) = 0;
 	virtual std::string getComponentId() = 0;
 };
 
 
 template<typename Component>
 struct ComponentType : IComponentType{
-	virtual void addToEntity(ECS::Entity* entity) override {
+	virtual void addToEntity(River::ECS::Entity* entity) override {
 		entity->addComponent<Component>();
 	}
-	virtual void removeFromEntity(ECS::Entity* entity) override {
+	virtual void removeFromEntity(River::ECS::Entity* entity) override {
 		entity->removeComponent<Component>();
 	}
 
@@ -163,14 +163,14 @@ struct ComponentType : IComponentType{
 
 
 struct IQuery {
-	virtual unsigned int run(ECS::Domain& domain) = 0;
+	virtual unsigned int run(River::ECS::Domain& domain) = 0;
 	virtual std::vector<std::string> getComponentIds() = 0;
 };
 
 template <typename ...Components>
 struct Query : IQuery {
 
-	unsigned int run(ECS::Domain& domain) override {
+	unsigned int run(River::ECS::Domain& domain) override {
 		int count = 0;
 		domain.forMatchingEntities<Components... >([&](auto entity, auto... components) {
 			count++;
@@ -189,7 +189,7 @@ struct Query : IQuery {
 
 
 struct IEntityType {
-	virtual ECS::Entity* create(ECS::Domain& domain) = 0;
+	virtual River::ECS::Entity* create(River::ECS::Domain& domain) = 0;
 	virtual std::vector<std::string> getComponentIds() = 0;
 };
 
@@ -279,18 +279,18 @@ struct TestController {
 
 
 private:
-	std::vector<ECS::Entity*> entities;
-	std::unordered_map<ECS::Entity*, std::unordered_set<std::string>> entityComponents;
+	std::vector<River::ECS::Entity*> entities;
+	std::unordered_map<River::ECS::Entity*, std::unordered_set<std::string>> entityComponents;
 	std::vector<IQuery*> queries;
 	std::vector<IComponentType*> componentTypes;
-	ECS::Domain domain;
+	River::ECS::Domain domain;
 };
 
 
 
 //template <typename ComponentTypes>
 //struct DomainController {
-//	ECS::Domain domain;
+//	River::ECS::Domain domain;
 //
 //
 //	DomainController() {
@@ -320,7 +320,7 @@ private:
 
 
 //template <typename ...Components>
-//void testQuery(ECS::&Domain) {
+//void testQuery(River::ECS::&Domain) {
 //
 //}
 
@@ -362,7 +362,7 @@ TEST_CASE("General Test", "[general]") {
 	testController.testQueries();
 
 
-	//ECS::Domain domain;
+	//River::ECS::Domain domain;
 
 
 	/*auto entity = domain.createEntity();
@@ -374,7 +374,7 @@ TEST_CASE("General Test", "[general]") {
 
 	//std::vector<Query*> queries;
 
-	/*std::function<void(ECS::Domain& domain)> callback = [](ECS::Domain& domain) {
+	/*std::function<void(River::ECS::Domain& domain)> callback = [](River::ECS::Domain& domain) {
 		domain.forMatchingEntities<ComponentA, ComponentB, ComponentC>() {
 
 		}

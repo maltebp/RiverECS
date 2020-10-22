@@ -3,20 +3,18 @@
 #include <ECS.h>
 #include <ECS/ComponentController.h>
 
-#include "Components/Components.h"
-
 #include "Log.h"
 
 
-struct TestComponent : ECS::Component {
+struct TestComponent : River::ECS::Component {
 	unsigned value = 0;
 };
 
-struct TestComponent2 : ECS::Component {
+struct TestComponent2 : River::ECS::Component {
 	unsigned value = 0;
 };
 
-struct TestComponent3 : ECS::Component {
+struct TestComponent3 : River::ECS::Component {
 	unsigned value = 0;
 };
 
@@ -25,8 +23,8 @@ void run() {
 
 	LOG("Starting sandbox");
 
-	ECS::Domain domain;
-	std::vector<ECS::Entity*> entities;
+	River::ECS::Domain domain;
+	std::vector<River::ECS::Entity*> entities;
 
 	auto entity = domain.createEntity();
 	entities.push_back(entity);
@@ -46,7 +44,7 @@ void run() {
 	domain.clean();
 
 
-	domain.forMatchingEntities<TestComponent, TestComponent2>([](ECS::Entity* e, TestComponent* c, TestComponent2* c2) {
+	domain.forMatchingEntities<TestComponent, TestComponent2>([](River::ECS::Entity* e, TestComponent* c, TestComponent2* c2) {
 		LOG(c->value);
 		LOG(c2->value);
 	});

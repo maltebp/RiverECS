@@ -63,7 +63,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\build\bin\$(Configuration)-$(Platform)\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)build\lib\$(Configuration)-$(Platform)\</AdditionalLibraryDirectories>
       <AdditionalDependencies>RiverECS.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -83,14 +83,13 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\build\bin\$(Configuration)-$(Platform)\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)build\lib\$(Configuration)-$(Platform)\</AdditionalLibraryDirectories>
       <AdditionalDependencies>RiverECS.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\catch.h" />
     <ClInclude Include="src\UnitTests\General.h" />
-    <ClInclude Include="src\Components\Components.h" />
     <ClInclude Include="src\Log.h" />
     <ClInclude Include="src\Sandbox\Main.h" />
     <ClInclude Include="src\UnitTests\ComponentController.h" />

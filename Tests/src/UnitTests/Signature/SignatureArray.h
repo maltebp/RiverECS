@@ -9,7 +9,7 @@
 
 TEST_CASE("Testing adding signatures, and settings values", "[signature_array]") {
 
-	ECS::SignatureArray signatureArray(1000);
+	River::ECS::SignatureArray signatureArray(1000);
 	signatureArray.setSignatureSize(10);
 
 	// List of sets of signatures bits to set
@@ -44,7 +44,7 @@ TEST_CASE("Testing unsetting values", "[signature_array]") {
 		correct values.
 	*/
 
-	ECS::SignatureArray signatureArray(1000);
+	River::ECS::SignatureArray signatureArray(1000);
 	signatureArray.setSignatureSize(10);
 
 	// List of sets of signatures bits to set
@@ -95,7 +95,7 @@ TEST_CASE("Testing removal of signature", "[signature_array]") {
 		checking them again
 	*/
 
-	ECS::SignatureArray signatureArray(1000);
+	River::ECS::SignatureArray signatureArray(1000);
 	signatureArray.setSignatureSize(10);
 
 	// List of sets of signatures bits to set
@@ -186,7 +186,7 @@ TEST_CASE("Testing resing array", "[signature_array]") {
 		checking them again
 	*/
 
-	ECS::SignatureArray signatureArray(1000);
+	River::ECS::SignatureArray signatureArray(1000);
 	signatureArray.setSignatureSize(10);
 
 	// List of sets of signatures bits to set
@@ -240,7 +240,7 @@ TEST_CASE("Testing resing array", "[signature_array]") {
 
 
 TEST_CASE("Testing reallocation of array", "[signature_array]") {
-	ECS::SignatureArray signatureArray(15);
+	River::ECS::SignatureArray signatureArray(15);
 	signatureArray.setSignatureSize(10);
 
 	// List of sets of signatures bits to set

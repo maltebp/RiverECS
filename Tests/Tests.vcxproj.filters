@@ -27,9 +27,6 @@
     <ClInclude Include="src\Log.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Components\Components.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\UnitTests\ComponentController.h">
       <Filter>Header Files</Filter>
     </ClInclude>

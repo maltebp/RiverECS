@@ -135,7 +135,7 @@ namespace River::ECS {
 		 * @brief	Call the given callback for each Entity which has this Component
 		 * @param callback	The callback to call
 		*/
-		void forEachEntity(std::function<void (Entity*, C*)> callback) {
+		void forMatchingEntities(std::function<void (Entity*, C*)> callback) {
 			for( auto& component : components ) {
 				auto entity = entityMap.find(component.id)->second;
 				callback(entity, &component);

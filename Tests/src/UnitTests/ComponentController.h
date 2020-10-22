@@ -7,14 +7,14 @@
 #include <ECS.h>
 #include <ECS/ComponentController.h>
 
-struct TestComponent : public ECS::Component {
+struct TestComponent : public River::ECS::Component {
 	int i;
 	char c;
 	double d;
 };
 
 // Check if Controller's components matches expected components
-void checkEntities(ECS::ComponentController<TestComponent>& controller, std::vector<ECS::Entity*>& entities, std::unordered_map<ECS::Entity*, TestComponent>& expectedComponents) {
+void checkEntities(River::ECS::ComponentController<TestComponent>& controller, std::vector<River::ECS::Entity*>& entities, std::unordered_map<River::ECS::Entity*, TestComponent>& expectedComponents) {
 	for( int i = 0; i < entities.size(); i++ ) {
 		auto entity = entities.at(i);
 		auto component = controller.getComponent(entity);
@@ -29,16 +29,16 @@ void checkEntities(ECS::ComponentController<TestComponent>& controller, std::vec
 
 TEST_CASE("Component Controller Tests", "[component_controller]") {
 
-	ECS::Domain domain;   
-	ECS::ComponentController<TestComponent> controller;
+	River::ECS::Domain domain;   
+	River::ECS::ComponentController<TestComponent> controller;
 
 	// Setup entities
 	const auto NUM_ENTITIES = 90;
-	std::vector<ECS::Entity*> entities;
-	std::unordered_map<ECS::Entity*, TestComponent> expectedComponents;
+	std::vector<River::ECS::Entity*> entities;
+	std::unordered_map<River::ECS::Entity*, TestComponent> expectedComponents;
 
 	for( int i = 0; i < NUM_ENTITIES; i++ ) {
-		ECS::Entity* entity = domain.createEntity();
+		River::ECS::Entity* entity = domain.createEntity();
 		entities.push_back(entity);
 
 		auto component = controller.createComponent(entity);
