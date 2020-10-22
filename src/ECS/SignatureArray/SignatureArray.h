@@ -30,9 +30,8 @@ namespace River::ECS {
 		/**
 		 * @brief Removes all signatures from the array
 		 *
-		 * This deallocates the dynamic memory allocated for this list, and sets the number of
-		 * contained signatures to 0.
-		 * The signature size is not altered.
+		 * @details This deallocates the dynamic memory allocated for this list, and sets the number of
+		 * contained signatures to 0. The signature size is not altered.
 		*/
 		void clear();
 
@@ -126,7 +125,7 @@ namespace River::ECS {
 
 		unsigned int numSignatures = 0;
 
-		unsigned int signatureSize = 1; // TODO: Fix this
+		unsigned int signatureSize = 0; // TODO: Fix this
 		unsigned int signatureParts = 1; // Number of unsigned chars to represent elements (always elementSize ceil(elementSize/sizeof(unsigned char))
 
 		unsigned char* data = nullptr;
