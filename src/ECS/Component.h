@@ -1,5 +1,6 @@
 #pragma once
 
+#include <type_traits>
 #include <string>
 
 
@@ -14,47 +15,28 @@ namespace River::ECS {
 	 */
 	const ComponentId MAX_COMPONENT_ID = std::numeric_limits<ComponentId>::max();
 
+
 	/**
 	 * @brief	All user-defined components must inherit from this struct
 	*/
 	struct Component {
+
 		/**
 		 * @brief	Unique ID for each component in the same type
 		*/
 		ComponentId id;
-
-
 	};
 
 
 
 	/** Asserts whether or not the given type is a valid component type */
-	#define RV_ECS_ASSERT_COMPONENT_TYPE(x) static_assert(std::is_base_of<Component, x>::value, "Component types must inherit from ECS::Component")
+	#define RV_ECS_ASSERT_COMPONENT_TYPE(x) \
+		static_assert(std::is_base_of<Component, x>::value, "Component type must inherit from ECS::Component");\
+		static_assert(std::is_default_constructible<x>::value, "Component type must have a default constructor")
+				
 
 
 	using ComponentTypeId = int32_t;
-	
-
-	/*class ComponentTypeRegistry;
-
-	struct ComponentTypeId {
-	public:
-		static const ComponentTypeId UNKNOWN;
-	private:
-
-		template <typename C>
-		ComponentTypeId() : name(typeid(C).name()) {
-			RV_ECS_ASSERT_COMPONENT_TYPE(C);
-		}
-
-		ComponentTypeId(const std::string& name) : name(name) {}
-
-		const std::string name;
-		friend class ComponentTypeRegistry;
-	};
-
-	const ComponentTypeId ComponentTypeId::UNKNOWN("UNKNOWN");*/
-
 }
 
 

@@ -94,7 +94,9 @@ ___Cleaning___
 ### Components
 
 ___Defining Components___  
-All classes and structs can function as components, as long as they publicly extend the `Component` class:
+All classes and structs can function as components, as long as they:
+ - Publicly extend the `Component` class
+ - Provide a default constructor (can be the implicit default constructor)
 
 ```c++
 struct MyComponent : public ECS::Component {
@@ -102,7 +104,7 @@ struct MyComponent : public ECS::Component {
 }
 ```
 
-This is all you need (no need for registering it in the system).  
+This is all you need to define a new component (no need for registering it manually in the system).  
 The Component class provides the struct with an `id`, which can be used to query certain things in the domain.
 
 
