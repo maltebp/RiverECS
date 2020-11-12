@@ -192,25 +192,33 @@ namespace River::ECS {
 			ComponentId id = createComponentId();
 			unsigned int index = numComponents;
 
-			if( newComponents.size() == 0 || newComponents.back().size() == SECONDARY_LIST_SIZE ) {
-				// All lists are full - create new secondary list
-				// This is to ensure that pointers to other newly created components aren't
-				// invalidated
-				newComponents.emplace_back();
-				newComponents.back().reserve(SECONDARY_LIST_SIZE);
+			C* newComponent = nullptr;
+
+			if( components.size() > index ) {
+				newComponent = &components[index];
+				numComponentsInPrimary++;
+			} else {
+				if( newComponents.size() == 0 || newComponents.back().size() == SECONDARY_LIST_SIZE ) {
+					// All lists are full - create new secondary list
+					// This is to ensure that pointers to other newly created components aren't
+					// invalidated
+					newComponents.emplace_back();
+					newComponents.back().reserve(SECONDARY_LIST_SIZE);
+				}
+
+				auto& list = newComponents.back();
+				list.emplace_back();
+				newComponent = &list.back();
 			}
-
-			auto& list = newComponents.back();
-			list.emplace_back();
-
-			auto& newComponent = list.back();
-			newComponent = C(); // Reset to default values
-			newComponent.id = id;
-			indexMap[id] = index;
 
 			numComponents++;
 
-			return &newComponent;
+			(*newComponent) = C(); // Reset to default values
+			newComponent->id = id;
+			indexMap[id] = index;
+
+
+			return newComponent; 
 		}
 
 
