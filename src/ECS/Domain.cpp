@@ -78,7 +78,7 @@ namespace River::ECS {
 				auto movedEntity = signatureIndexEntityMap.find(movedSignature)->second;
 				signatureIndexEntityMap.erase(movedSignature);
 				signatureIndexEntityMap.find(signatureIndex)->second = movedEntity;
-				entitySignatureIndexMap.find(movedEntity)->second = movedSignature;
+				entitySignatureIndexMap.find(movedEntity)->second = signatureIndex;
 			} else {
 				signatureIndexEntityMap.erase(signatureIndex);
 			}

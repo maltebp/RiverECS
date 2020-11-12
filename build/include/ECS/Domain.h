@@ -54,10 +54,6 @@ namespace River::ECS {
 		}						  
 
 
-
-
-
-
 		template <typename C>
 		void forMatchingEntities(std::function<void (Entity*, C*)> callback) {
 			auto componentController = getComponentController<C>();

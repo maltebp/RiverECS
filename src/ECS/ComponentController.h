@@ -221,7 +221,6 @@ namespace River::ECS {
 			newComponent->id = id;
 			indexMap[id] = index;
 
-
 			return newComponent;
 		}
 
