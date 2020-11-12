@@ -12,7 +12,7 @@
 
 TEST_CASE("Resizing Signature", "[signature]") {
 
-	ECS::Signature signature(60);
+	River::ECS::Signature signature(60);
 
 	signature.set(4); 
 	signature.set(6);

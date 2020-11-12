@@ -90,4 +90,28 @@ TEST_CASE("Component Controller Tests", "[component_controller]") {
 
 		checkEntities(controller, entities, expectedComponents);
 	}
+
+	SECTION("Delete - Double clean") {
+		// Clean the controller twice
+
+		checkEntities(controller, entities, expectedComponents);
+
+		// Delete entities
+		auto entityToDelete = entities.at(55);
+		entities.erase(entities.begin() + 55);
+		expectedComponents.erase(entityToDelete);
+		controller.deleteComponent(entityToDelete);
+
+		REQUIRE(controller.getComponent(entityToDelete) != nullptr);
+
+		checkEntities(controller, entities, expectedComponents);
+
+		controller.clean();
+		REQUIRE(controller.getComponent(entityToDelete) == nullptr);
+
+		controller.clean();
+		REQUIRE(controller.getComponent(entityToDelete) == nullptr);
+
+		checkEntities(controller, entities, expectedComponents);
+	}
 }

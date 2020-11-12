@@ -1,15 +1,12 @@
 ﻿  Main.cpp
+C:\Users\Malte\Projects\RiverECS\Tests\src\UnitTests\Signature\BitManipulator.h(23,21): warning C4018: '<': signed/unsigned mismatch
 C:\Users\Malte\Projects\RiverECS\build\include\ECS\ComponentTypeRegistry.h(36,1): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
-C:\Users\Malte\Projects\RiverECS\Tests\src\UnitTests\General.h(239,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Malte\Projects\RiverECS\Tests\src\UnitTests\General.h(266,1): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
 C:\Users\Malte\Projects\RiverECS\Tests\src\UnitTests\Main.h(58,59): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\Malte\Projects\RiverECS\build\include\ECS\Domain.h(133,28): warning C4018: '<=': signed/unsigned mismatch
-C:\Users\Malte\Projects\RiverECS\build\include\ECS\Domain.h(69): message : see reference to function template instantiation 'void River::ECS::Domain::addComponentTypeToSignature<ComponentB>(River::ECS::Signature &)' being compiled
-C:\Users\Malte\Projects\RiverECS\Tests\src\UnitTests\General.h(173): message : see reference to function template instantiation 'void River::ECS::Domain::forMatchingEntities<ComponentB,Query<ComponentB>::run::<lambda_27c9f47bee1069cf726e9437973e40ce>>(Func)' being compiled
+C:\Users\Malte\Projects\RiverECS\build\include\ECS\Domain.h(69): message : see reference to function template instantiation 'void River::ECS::Domain::addComponentTypeToSignature<ComponentC>(River::ECS::Signature &)' being compiled
+C:\Users\Malte\Projects\RiverECS\Tests\src\UnitTests\Entity.h(208): message : see reference to function template instantiation 'void River::ECS::Domain::forMatchingEntities<ComponentC,____C_A_T_C_H____T_E_S_T____33::<lambda_bf81d356e0003497ebdf79cb172af131>>(Func)' being compiled
           with
           [
-              Func=Query<ComponentB>::run::<lambda_27c9f47bee1069cf726e9437973e40ce>
+              Func=____C_A_T_C_H____T_E_S_T____33::<lambda_bf81d356e0003497ebdf79cb172af131>
           ]
-C:\Users\Malte\Projects\RiverECS\Tests\src\UnitTests\General.h(173): message : while compiling class template member function 'unsigned int Query<ComponentB>::run(River::ECS::Domain &)'
-C:\Users\Malte\Projects\RiverECS\Tests\src\UnitTests\General.h(342): message : see reference to class template instantiation 'Query<ComponentB>' being compiled
   Tests.vcxproj -> C:\Users\Malte\Projects\RiverECS\Tests\bin\Debug-x64\Tests.exe

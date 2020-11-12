@@ -260,6 +260,8 @@ namespace River::ECS {
 
 				numComponents--;
 			}
+
+			componentsToDelete.clear();
 		}
 
 
@@ -282,10 +284,6 @@ namespace River::ECS {
 
 		unsigned int numComponents = 0;
 		std::vector<C> components;
-		
-
-		// Temporary storage for components created in between compress() calls
-		//std::vector<std::vector<C>> secondaryLists;
 	};
 
 

@@ -378,4 +378,74 @@ TEST_CASE("Same Cycle Create and Destroy", "[entity]") {
 	}
 
 
+	SECTION("Create, destroy and recreate entity") {
+		/*	NOTE:	This targets a very specific bug I encountered and have fixed, and I don't
+					expect this bug to re-emerge. However, I'll let the test be.
+
+					The bug was that entities' signature indices werent moved from the
+					'signatureIndexEntityMap' in the Domain class, if the entity was the last
+					created entity. Simple fix really.
+		
+		*/
+
+		// Creating and destroying new entity
+		auto entity3 = domain.createEntity();
+		entity3->addComponent<ComponentA>();
+		entity3->addComponent<ComponentD>();
+
+		auto entity4 = domain.createEntity();
+		entity4->addComponent<ComponentA>();
+		entity4->addComponent<ComponentD>();
+
+		domain.clean();
+
+		entityCount = 0 ;
+		domain.forMatchingEntities<ComponentD>([&entityCount](auto entity, auto d) {
+			REQUIRE(d != nullptr);
+			entityCount++;
+		});
+		REQUIRE(entityCount == 2);
+
+		domain.destroyEntity(entity4);
+		domain.clean();
+
+		REQUIRE(domain.getEntityComponent<ComponentA>(entity4) == nullptr);
+		REQUIRE(domain.getEntityComponent<ComponentD>(entity4) == nullptr);
+
+		entityCount = 0;
+		domain.forMatchingEntities<ComponentD>([&entityCount](auto entity, auto d) {
+			REQUIRE(d != nullptr);
+			entityCount++;
+		});
+		REQUIRE(entityCount == 1);
+
+		// Recreate the entity 3
+		entity4 = domain.createEntity();
+		entity4->addComponent<ComponentA>();
+		entity4->addComponent<ComponentD>();
+
+		// Check it hasn't been created yet
+		entityCount = 0;
+		domain.forMatchingEntities<ComponentD>([&entityCount](auto entity, auto d) {
+			REQUIRE(d != nullptr);
+			entityCount++;
+			});
+		REQUIRE(entityCount == 1);
+
+		domain.clean();
+
+		entityCount = 0;
+		domain.forMatchingEntities<ComponentD>([&entityCount](auto entity, auto d) {
+			REQUIRE(d != nullptr);
+			entityCount++;
+			});
+		REQUIRE(entityCount == 2);
+	}
+
+
+
+
+
 }
+
+

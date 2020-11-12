@@ -42,7 +42,11 @@ namespace River::ECS {
 			// Adding signature (not registering components)
 			auto signatureIndex = signatures.add();
 			entitySignatureIndexMap.emplace(newEntity, signatureIndex);
-			signatureIndexEntityMap.emplace(signatureIndex, newEntity);
+			{
+				auto insertResult = signatureIndexEntityMap.emplace(signatureIndex, newEntity);
+				if( !insertResult.second )
+					throw new Exception("Storing signature index failed");
+			}
 		}
 
 		// Moving new components into signatures
@@ -75,6 +79,8 @@ namespace River::ECS {
 				signatureIndexEntityMap.erase(movedSignature);
 				signatureIndexEntityMap.find(signatureIndex)->second = movedEntity;
 				entitySignatureIndexMap.find(movedEntity)->second = movedSignature;
+			} else {
+				signatureIndexEntityMap.erase(signatureIndex);
 			}
 
 			entitySignatureIndexMap.erase(entity);
