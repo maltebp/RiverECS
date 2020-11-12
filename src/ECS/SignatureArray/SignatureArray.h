@@ -117,7 +117,7 @@ namespace River::ECS {
 
 	private:
 
-		double memoryStepSize = 0;
+		unsigned int memoryStepSize = 0;
 
 		/**
 		 * @brief  Size of the allocated memory */

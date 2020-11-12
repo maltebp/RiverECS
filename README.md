@@ -108,12 +108,12 @@ This is all you need to define a new component (no need for registering it manua
 The Component class provides the struct with an `id`, which can be used to query certain things in the domain.
 
 
-___Adding Component___
-
+___Adding Component___  
 ```c++
 MyComponent* comp = entity->addComponent<MyComponent>();
 comp->myData = 10;
 ```
+The component will be initialized with the default constructor (implicit or explicit)
 
 ___Removing Component___
 

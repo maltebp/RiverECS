@@ -53,8 +53,8 @@ namespace River::ECS {
 
 		// Reallocate memory and initialize data to 0
 		bits = (unsigned char*) realloc(bits, newParts);
-		unsigned firstNewByte = parts;
-		for( int i = parts; i < newParts; i++ ) {
+		unsigned int firstNewByte = parts;
+		for( unsigned int i = parts; i < newParts; i++ ) {
 			bits[i] = 0;
 		}
 

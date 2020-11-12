@@ -35,7 +35,7 @@ namespace River::ECS {
 		signatures.setSignatureSize(ComponentTypeRegistry::getNumTypes());
 		
 		// Move new entities
-		signatures.reserveSignatures(signatures.getNumSignatures() + newEntities.size());
+		signatures.reserveSignatures(signatures.getNumSignatures() + (unsigned int) newEntities.size());
 		entities.reserve(entities.size() + newEntities.size());
 		for( auto& newEntity : newEntities ) {
 			entities.push_back(newEntity);

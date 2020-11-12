@@ -130,14 +130,14 @@ namespace River::ECS {
 				int partIndex = newSignatureParts - 1;
 
 				// Add new empty parts
-				for( int i = 0; i < partsDifference; i++ ) {
+				for( unsigned int i = 0; i < partsDifference; i++ ) {
 					*newData = 0;
 					newData--;
 					partIndex--;
 				}
 
 				// Add old existing parts
-				for( int i = 0; i < signatureParts; i++ ) {
+				for( unsigned int i = 0; i < signatureParts; i++ ) {
 					*newData = *oldData;
 					newData--;
 					oldData--;
@@ -178,7 +178,7 @@ namespace River::ECS {
 		// Move last signature to removed signatures slot
 		unsigned char* lastSignature = data + (size_t)numSignatures * signatureParts;
 		unsigned char* deletedSignature = data + (size_t)index * signatureParts;
-		for( int part = 0; part < signatureParts; part++ )
+		for( unsigned int part = 0; part < signatureParts; part++ )
 			deletedSignature[part] = lastSignature[part];
 
 		bitManipulator.setData(data, numSignatures * signatureParts*8);
