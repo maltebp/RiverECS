@@ -119,6 +119,11 @@ namespace River::ECS {
 	}
 
 
+	unsigned int Domain::getNumEntities() {
+		return (unsigned int) entities.size();
+	}
+
+
 
 
 	

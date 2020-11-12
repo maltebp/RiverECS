@@ -259,9 +259,10 @@ namespace River::ECS {
 
 				auto& component = components.at(index);
 
-				// Move last component to the now empty slot
-				if( (index + 1) < numComponents ) {
-					auto& last = components.at(index);
+				bool isNotLast = (index + 1) < numComponents;
+				if( isNotLast ) {
+					// Move last component to the now empty slot
+					auto& last = components.at(numComponents-1);
 					component = last;
 					indexMap.at(last.id) = index;
 				}

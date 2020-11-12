@@ -100,6 +100,12 @@ namespace River::ECS {
 
 
 
+		/**
+		 * @return	The total number of "cleaned" entities (doesn't include newly created entities, but includes newly deleted ones)
+		*/
+		unsigned int getNumEntities();
+
+
 		
 	private:
 		template <typename C>
