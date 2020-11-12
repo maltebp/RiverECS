@@ -1,5 +1,5 @@
 # River ECS
-A simple [ECS](https://en.wikipedia.org/wiki/Entity_component_system) library written in C++17 for my game framework _[River](https://github.com/maltebp/River)_. The library is, however, not dependant on the framework, and therefor be used in any project you like.
+A simple [ECS](https://en.wikipedia.org/wiki/Entity_component_system) library written in C++17 for my game framework _[River](https://github.com/maltebp/River)_. While built for River, it's not dependant on it, and the library can be used in any project you like.
 
 
 ## Features
@@ -57,7 +57,7 @@ ECS::Domain domain;
  You may construct multiple domains, as each Domain will be completely independent from any other. This allows you to have seperate "worlds" of entities and components.
 
 __Cleaning the Domain__  
-The Domain should be _cleaned: after each update cycle in your program by using the `clean` method:
+The Domain should be _cleaned_: after each update cycle in your program by using the `clean` method:
 
 ```c++
 // Update entities / components ... 
@@ -156,10 +156,10 @@ I have prioritized a simple usage of the library and its performance, over ease 
  The concept of cleaning the Domain was introduced to give user full control over when pointers to components and entities would be invalidated. I don't believe it will have a negative impact in terms of the small delay from creating an entity/component to the first time it can be referenced in a query.
 
  - _Entity component_  
-Which types components an entity has, is stored in a custom-made bitset, and all these bitsets (one for each entity) are stored in continious memory. This is to improve fast lookup for the query, and compact storage.
+Which types components an entity has, is stored in a custom-made bitset, and all these bitsets (one for each entity) are stored in continious memory. The fact that a component flag is only 1 bit, and the flags are continious in memory, makes the querying of entities quite fast.
 
 
 ## Test
-Due to the centrality of the system within _River_, I find it essential to be able to confirm that the system works as intending at all times.  
-The system is unit tested using the  [Catch2](https://github.com/catchorg/Catch2), and all tests are present in the Visual Studio project `Tests` in the `Test` folder. The test project also contains a Sandbox mode to be used for running non-persistent tests, and this can be executed by changing UNIT_TESTS flag in `Main.cpp`.
+Since the library is very central part of my game framework _River_, I find it essential to be able to confirm that the system works as intending at all times.  
+As such, the library is unit tested using the  [Catch2](https://github.com/catchorg/Catch2), and all tests are present in the Visual Studio project `Tests` in the `Test` folder. The test project also contains a Sandbox mode to be used for running non-persistent tests, and this can be executed by changing UNIT_TESTS flag in `Main.cpp`.
 
