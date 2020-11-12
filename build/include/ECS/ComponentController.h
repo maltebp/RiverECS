@@ -111,6 +111,9 @@ namespace River::ECS {
 					The pointer is invalidated when the Controller is cleaned or compressed.
 		*/
 		C* getComponent(ComponentId id) {
+			if( id == NULL_COMPONENT_ID )
+				throw new Exception("ComponentId is null");
+
 			// Check if id exists
 			auto iterator = indexMap.find(id);
 			if( iterator == indexMap.end() )
@@ -194,9 +197,10 @@ namespace River::ECS {
 
 			C* newComponent = nullptr;
 
-			if( components.size() > index ) {
+			if( components.size() > numComponents ) {
 				newComponent = &components[index];
 				numComponentsInPrimary++;
+				numComponents++;
 			} else {
 				if( newComponents.size() == 0 || newComponents.back().size() == SECONDARY_LIST_SIZE ) {
 					// All lists are full - create new secondary list
@@ -209,16 +213,16 @@ namespace River::ECS {
 				auto& list = newComponents.back();
 				list.emplace_back();
 				newComponent = &list.back();
+				numComponents++;
 			}
 
-			numComponents++;
 
 			(*newComponent) = C(); // Reset to default values
 			newComponent->id = id;
 			indexMap[id] = index;
 
 
-			return newComponent; 
+			return newComponent;
 		}
 
 
@@ -278,7 +282,7 @@ namespace River::ECS {
 
 
 	private:
-		ComponentId nextId = 0;
+		ComponentId nextId = 1;
 
 		// Maps entity to component id
 		std::unordered_map<Entity*, ComponentId> componentMap;

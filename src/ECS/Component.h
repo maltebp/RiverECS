@@ -6,9 +6,15 @@
 
 namespace River::ECS {
 
+	//class IComponentController;
 	
 	// Represents a component
 	using ComponentId = uint32_t;
+
+	/**
+	 * @brief The default "null" ComponentId
+	*/
+	const ComponentId NULL_COMPONENT_ID = 0;
 
 	/**
 	 *	@brief The maximum value for ComponentId
@@ -20,11 +26,17 @@ namespace River::ECS {
 	 * @brief	All user-defined components must inherit from this struct
 	*/
 	struct Component {
+	public:
+		ComponentId getId() { return id; }
 
+	private:
 		/**
 		 * @brief	Unique ID for each component in the same type
 		*/
-		ComponentId id;
+		ComponentId id = NULL_COMPONENT_ID;
+
+		template<typename C>
+		friend class ComponentController;
 	};
 
 
