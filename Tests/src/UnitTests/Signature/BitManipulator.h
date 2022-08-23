@@ -20,7 +20,7 @@ TEST_CASE("Generel tests", "[bit_manipulator]") {
 	River::ECS::BitManipulator manipulator(data, bits);
 
 	SECTION("Set and unset each individual bit") {
-		for( int i = 0; i < bits; i++ ) {
+		for( unsigned int i = 0; i < bits; i++ ) {
 			manipulator.set(i);
 			REQUIRE(manipulator.getBitsSet() == 1);
 			REQUIRE(manipulator.get(i) == true);

@@ -55,7 +55,7 @@ int start(int argc, char* argv[]) {
 
 
 	auto cArgs = toCStringList(args);
-	int result = Catch::Session().run(cArgs.size(), &cArgs[0]);
+	int result = Catch::Session().run((int)cArgs.size(), &cArgs[0]);
 
 	return result;
 }

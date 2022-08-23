@@ -1,11 +1,2 @@
 ﻿  Main.cpp
-C:\Users\malte\projects\RiverECS\Tests\src\UnitTests\Signature\BitManipulator.h(23,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\malte\projects\RiverECS\Tests\src\UnitTests\Main.h(58,59): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\malte\projects\RiverECS\src\ECS\Domain.h(135,28): warning C4018: '<=': signed/unsigned mismatch
-C:\Users\malte\projects\RiverECS\src\ECS\Domain.h(65): message : see reference to function template instantiation 'void River::ECS::Domain::addComponentTypeToSignature<ComponentC>(River::ECS::Signature &)' being compiled
-C:\Users\malte\projects\RiverECS\Tests\src\UnitTests\Entity.h(208): message : see reference to function template instantiation 'void River::ECS::Domain::forMatchingEntities<ComponentC,____C_A_T_C_H____T_E_S_T____35::<lambda_0d072f1f0fd49c112a1c55498b60af3f>>(Func)' being compiled
-          with
-          [
-              Func=____C_A_T_C_H____T_E_S_T____35::<lambda_0d072f1f0fd49c112a1c55498b60af3f>
-          ]
   Tests.vcxproj -> C:\Users\malte\projects\RiverECS\Tests\bin\Debug-x64\Tests.exe
